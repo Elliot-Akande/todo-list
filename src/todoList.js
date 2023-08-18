@@ -19,6 +19,8 @@ export default function todoList(title) {
         _listItems[index] = newItem;
     };
 
+    const removeItem = index => _listItems.splice(index, 1);
+
     const toggleItemComplete = index => _listItems[index].toggleComplete();
 
     //  For development only
@@ -33,6 +35,7 @@ export default function todoList(title) {
         getItems,
         addItem,
         editItem,
+        removeItem,
         toggleItemComplete,
         log,
     };
