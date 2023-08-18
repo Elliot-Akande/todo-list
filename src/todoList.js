@@ -14,10 +14,12 @@ export default function todoList(title) {
         item.log(); //  For development only
     };
 
-    const editItem = (itemNum, title, description, dueDate, priority) => {
+    const editItem = (index, title, description, dueDate, priority) => {
         const newItem = todoItem(title, description, dueDate, priority);
-        _listItems[itemNum] = newItem;
+        _listItems[index] = newItem;
     };
+
+    const toggleItemComplete = index => _listItems[index].toggleComplete();
 
     //  For development only
     const log = () => {
@@ -31,6 +33,7 @@ export default function todoList(title) {
         getItems,
         addItem,
         editItem,
+        toggleItemComplete,
         log,
     };
 }
