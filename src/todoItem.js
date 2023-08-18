@@ -11,12 +11,12 @@ export default function todoItem(title, description, dueDate, priority) {
     const getPriority = () => _priority;
     const isComplete = () => _complete;
 
-    const setTitle = title => _title = title;
-    const setDescription = description => _description = description;
-    const setDueDate = dueDate => _dueDate = dueDate;
-    const setPriority = priority => _priority = priority;
-
     const toggleComplete = () => _complete = !_complete;
+
+    //  For development only
+    const log = () => {
+        return {_title, _description, _dueDate, _priority, _complete};
+    }
 
     return {
         getTitle,
@@ -24,10 +24,7 @@ export default function todoItem(title, description, dueDate, priority) {
         getDueDate,
         getPriority,
         isComplete,
-        setTitle,
-        setDescription,
-        setDueDate,
-        setPriority,
         toggleComplete,
+        log,
     }
 }
