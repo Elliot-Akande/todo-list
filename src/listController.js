@@ -1,10 +1,15 @@
+import PubSub from "pubsub-js";
 import todoList from "./todoList";
 
 const listController = (() => {
     const lists = [];
 
     const newList = (title) => {
-        lists.push(todoList(title));
+        const list = todoList(title)
+        lists.push(list);
+
+        const NEW_LIST = 'new list created';
+        PubSub.publish(NEW_LIST, list);
     }
 
     const removeList = (index) => lists.splice(index, 1);
