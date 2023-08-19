@@ -63,6 +63,8 @@ const sidebarController = (() => {
         projectTitle.classList.add('title');
         projectTitle.textContent = data.getTitle();
         project.appendChild(projectTitle);
+
+        project.addEventListener('click', _projectPressed);
     }; 
 
     const _createNavItem = (category, text) => {
@@ -86,6 +88,9 @@ const sidebarController = (() => {
     };
 
     const _addProjectPressed = (e) => {
+        const ADD_PROJECT = 'create new project';
+        PubSub.publish(ADD_PROJECT);
+        
         console.log(e.target);
     };
 
@@ -95,13 +100,14 @@ const sidebarController = (() => {
         homeItems.forEach(item => item.addEventListener('click', _homeItemPressed));
         
         //  Project listeners
-        const projects = document.querySelectorAll('.projects div');
+        const projects = document.querySelectorAll('.project');
         projects.forEach(item => item.addEventListener('click', _projectPressed));
 
         //  Add project listener
         const addProjectButton = document.querySelector('.add-project');
         addProjectButton.addEventListener('click', _addProjectPressed);
     };
+
 
     const _registerSubscribers = () => {
         const NEW_LIST = 'new list created';

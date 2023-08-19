@@ -24,11 +24,19 @@ const listController = (() => {
         lists.forEach(list => {
             const title = list.getTitle()
             const numItems = list.getItems().length;
-            data.push({title, numItems})
+            data.push({ title, numItems })
         });
 
         console.table(data);
     }
+
+    const _registerSubscribers = () => {
+        const RQST_NEW_LIST = 'request to create new list';
+
+        PubSub.subscribe(RQST_NEW_LIST, (msg, data) => newList(data));
+    }
+
+    _registerSubscribers();
 
     return {
         newList,
