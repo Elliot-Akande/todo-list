@@ -10,10 +10,15 @@ const sidebarController = (() => {
         homeSection.classList.add('home-section');
         sidebar.appendChild(homeSection);
 
+        const homeHeader = document.createElement('h2');
+        homeHeader.textContent = 'Home';
+        homeHeader.classList.add('header');
+        homeSection.appendChild(homeHeader);
+        
+        //  Home List
         const homeList = document.createElement('ul');
         homeSection.appendChild(homeList);
 
-        //  Home List Items
         homeList.appendChild(_createNavItem('All Tasks'));
         homeList.appendChild(_createNavItem('Today'));
         homeList.appendChild(_createNavItem('Next 7 Days'));
@@ -22,6 +27,11 @@ const sidebarController = (() => {
         const projectSection = document.createElement('div');
         projectSection.classList.add('project-section');
         sidebar.appendChild(projectSection);
+
+        const projectHeader = document.createElement('h2');
+        projectHeader.textContent = 'Projects';
+        projectHeader.classList.add('header');
+        projectSection.appendChild(projectHeader);
 
         //  Projects div
         const projects = document.createElement('div');
