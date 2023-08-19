@@ -37,7 +37,7 @@ const sidebarController = (() => {
 
         //  Projects div
         const projects = document.createElement('div');
-        projects.classList.add('projects');
+        projects.classList.add('projects-div');
         projectSection.appendChild(projects);
 
         //  New Project Button
@@ -48,7 +48,22 @@ const sidebarController = (() => {
 
 
         _registerEventListeners();
-    }
+        _registerSubscribers();
+    };
+
+    const _renderNewProject = (msg, data) => {
+        const projectSection = document.querySelector('.projects-div');
+
+        const project = document.createElement('div');
+        project.classList.add('project');
+        project.dataset.title = data.getTitle();
+        projectSection.appendChild(project);
+
+        const projectTitle = document.createElement('div');
+        projectTitle.classList.add('title');
+        projectTitle.textContent = data.getTitle();
+        project.appendChild(projectTitle);
+    }; 
 
     const _createNavItem = (category, text) => {
         const item = document.createElement('li');
@@ -59,20 +74,20 @@ const sidebarController = (() => {
         item.appendChild(title);
 
         return item;
-    }
+    };
 
     const _homeItemPressed = (e) => {
         const category = e.target.dataset.category;
         console.log({category});
-    }
+    };
 
     const _projectPressed = (e) => {
         console.log(e.target);
-    }
+    };
 
     const _addProjectPressed = (e) => {
         console.log(e.target);
-    }
+    };
 
     const _registerEventListeners = () => {
         //  Home item listeners
@@ -86,7 +101,14 @@ const sidebarController = (() => {
         //  Add project listener
         const addProjectButton = document.querySelector('.add-project');
         addProjectButton.addEventListener('click', _addProjectPressed);
+    };
+
+    const _registerSubscribers = () => {
+        const NEW_LIST = 'new list created';
+
+        PubSub.subscribe(NEW_LIST, _renderNewProject);
     }
+
 
     return {
         render,
