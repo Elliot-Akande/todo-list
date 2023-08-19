@@ -1,3 +1,5 @@
+import PubSub from "pubsub-js";
+
 const sidebarController = (() => {
     const contentDiv = document.querySelector('.content');
 
@@ -19,9 +21,9 @@ const sidebarController = (() => {
         const homeList = document.createElement('ul');
         homeSection.appendChild(homeList);
 
-        homeList.appendChild(_createNavItem('All Tasks'));
-        homeList.appendChild(_createNavItem('Today'));
-        homeList.appendChild(_createNavItem('Next 7 Days'));
+        homeList.appendChild(_createNavItem('all', 'All Tasks'));
+        homeList.appendChild(_createNavItem('today', 'Today'));
+        homeList.appendChild(_createNavItem('week', 'Next 7 Days'));
 
         //  Project Section
         const projectSection = document.createElement('div');
@@ -44,16 +46,46 @@ const sidebarController = (() => {
         button.textContent = 'Add Project' 
         projectSection.appendChild(button);
 
+
+        _registerEventListeners();
     }
 
-    const _createNavItem = (text) => {
+    const _createNavItem = (category, text) => {
         const item = document.createElement('li');
         const title = document.createElement('div');
 
         title.textContent = text;
+        title.dataset.category = category;
         item.appendChild(title);
 
         return item;
+    }
+
+    const _homeItemPressed = (e) => {
+        const category = e.target.dataset.category;
+        console.log({category});
+    }
+
+    const _projectPressed = (e) => {
+        console.log(e.target);
+    }
+
+    const _addProjectPressed = (e) => {
+        console.log(e.target);
+    }
+
+    const _registerEventListeners = () => {
+        //  Home item listeners
+        const homeItems = document.querySelectorAll('.home-section li');
+        homeItems.forEach(item => item.addEventListener('click', _homeItemPressed));
+        
+        //  Project listeners
+        const projects = document.querySelectorAll('.projects div');
+        projects.forEach(item => item.addEventListener('click', _projectPressed));
+
+        //  Add project listener
+        const addProjectButton = document.querySelector('.add-project');
+        addProjectButton.addEventListener('click', _addProjectPressed);
     }
 
     return {
