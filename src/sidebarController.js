@@ -1,4 +1,5 @@
 import PubSub from "pubsub-js";
+import listController from "./listController";
 
 const sidebarController = (() => {
     const contentDiv = document.querySelector('.content');
@@ -80,11 +81,17 @@ const sidebarController = (() => {
 
     const _homeItemPressed = (e) => {
         const category = e.target.dataset.category;
-        console.log({category});
+
+        const SHOW_HOME = 'home category pressed';
+        PubSub.publish(SHOW_HOME, category);
     };
 
     const _projectPressed = (e) => {
-        console.log(e.target);
+        const title = e.currentTarget.dataset.title;
+        const project = listController.getList(title);
+        
+        const SHOW_PROJECT = 'project pressed';
+        PubSub.publish(SHOW_PROJECT, project);
     };
 
     const _addProjectPressed = (e) => {
