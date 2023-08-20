@@ -1,4 +1,4 @@
-import listController from "./listController";
+import projectDisplay from "./projectDisplay";
 
 const mainController = (() => {
     const contentDiv = document.querySelector('.content');
@@ -14,8 +14,9 @@ const mainController = (() => {
         console.log({category});
     }
 
-    const _renderProject = (project) => {
-        console.log({project});
+    const _renderProject = (projectData) => {
+        const project = projectDisplay(projectData);
+        project.render();
     }
 
     const _registerSubscribers = () => {
