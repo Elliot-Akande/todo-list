@@ -1,3 +1,5 @@
+import newTaskModal from "./newTaskModal";
+
 const projectDisplay = (project) => {
     const _project = project;
     const main = document.querySelector('main');
@@ -43,12 +45,14 @@ const projectDisplay = (project) => {
     }
 
     const _addListItem = () => {
-        const title = prompt('Enter title of task');
-        const description = 'Sample description';
-        const date = '12/09/2023';
-        const priority = 'high';
+        // const title = prompt('Enter title of task');
+        // const description = 'Sample description';
+        // const date = '12/09/2023';
+        // const priority = 'high';
 
-        _project.addItem(title, description, date, priority);
+        // _project.addItem(title, description, date, priority);
+
+        newTaskModal.render();
 
         _renderListItems();
     } 
