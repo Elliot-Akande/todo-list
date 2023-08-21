@@ -43,8 +43,6 @@ const projectDisplay = (project) => {
             itemTitle.classList.add('title');
             itemDiv.appendChild(itemTitle);
         });
-
-        console.log('re-render');
     }
 
     const _addListItem = () => {

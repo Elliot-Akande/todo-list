@@ -110,9 +110,9 @@ const newTaskModal = (() => {
         cancel.classList.add('modal-cancel');
         footerRight.appendChild(cancel);
 
-        //  Add project button
+        //  Add task button
         const confirm = document.createElement('button');
-        confirm.textContent = 'Add Project';
+        confirm.textContent = 'Add Task';
         confirm.type = 'submit';
         confirm.classList.add('modal-confirm');
         footerRight.appendChild(confirm);
