@@ -23,7 +23,14 @@ const sidebarController = (() => {
         const homeList = document.createElement('ul');
         homeSection.appendChild(homeList);
 
-        homeList.appendChild(_createNavItem('all', 'All Tasks'));
+        // Inbox 
+        const inbox = _createNavItem('inbox', 'Inbox');
+        listController.newList('Inbox');
+        inbox.dataset.title = 'Inbox';
+        inbox.addEventListener('click', _projectPressed);
+        homeList.appendChild(inbox);
+
+        // Other home items
         homeList.appendChild(_createNavItem('today', 'Today'));
         homeList.appendChild(_createNavItem('week', 'Next 7 Days'));
 
@@ -53,22 +60,6 @@ const sidebarController = (() => {
         _registerSubscribers();
     };
 
-    const _renderNewProject = (msg, data) => {
-        const projectSection = document.querySelector('.projects-div');
-
-        const project = document.createElement('div');
-        project.classList.add('project');
-        project.dataset.title = data.getTitle();
-        projectSection.appendChild(project);
-
-        const projectTitle = document.createElement('div');
-        projectTitle.classList.add('title');
-        projectTitle.textContent = data.getTitle();
-        project.appendChild(projectTitle);
-
-        project.addEventListener('click', _projectPressed);
-    }; 
-
     const _createNavItem = (category, text) => {
         const item = document.createElement('li');
         const title = document.createElement('div');
@@ -79,6 +70,24 @@ const sidebarController = (() => {
 
         return item;
     };
+
+    const _renderNewProject = data => {
+        const projectSection = document.querySelector('.projects-div');
+
+        //  Project container
+        const project = document.createElement('div');
+        project.classList.add('project');
+        project.dataset.title = data.getTitle();
+        projectSection.appendChild(project);
+
+        //  Title
+        const projectTitle = document.createElement('div');
+        projectTitle.classList.add('title');
+        projectTitle.textContent = data.getTitle();
+        project.appendChild(projectTitle);
+
+        project.addEventListener('click', _projectPressed);
+    }; 
 
     const _homeItemPressed = (e) => {
         const category = e.target.dataset.category;
@@ -117,7 +126,7 @@ const sidebarController = (() => {
     const _registerSubscribers = () => {
         const NEW_LIST = 'new list created';
 
-        PubSub.subscribe(NEW_LIST, _renderNewProject);
+        PubSub.subscribe(NEW_LIST, (msg, data) => _renderNewProject(data));
     }
 
 
