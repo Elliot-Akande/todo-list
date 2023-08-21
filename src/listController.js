@@ -18,18 +18,6 @@ const listController = (() => {
 
     const getListAll = () => lists;
 
-    //  For dev purposes only
-    const log = () => {
-        const data = [];
-        lists.forEach(list => {
-            const title = list.getTitle()
-            const numItems = list.getItems().length;
-            data.push({ title, numItems })
-        });
-
-        console.table(data);
-    }
-
     const _registerSubscribers = () => {
         const RQST_NEW_LIST = 'request to create new list';
 
@@ -43,7 +31,6 @@ const listController = (() => {
         removeList,
         getList,
         getListAll,
-        log,
     }
 })();
 

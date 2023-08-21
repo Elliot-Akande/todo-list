@@ -1,3 +1,4 @@
+import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
 
 const projectDisplay = (project) => {
@@ -25,6 +26,7 @@ const projectDisplay = (project) => {
         main.appendChild(button);
 
         _registerEventListeners();
+        _registerSubscribers();
     }
 
     const _renderListItems = () => {
@@ -41,24 +43,26 @@ const projectDisplay = (project) => {
             itemTitle.classList.add('title');
             itemDiv.appendChild(itemTitle);
         });
+
+        console.log('re-render');
     }
 
     const _addListItem = () => {
-        // const title = prompt('Enter title of task');
-        // const description = 'Sample description';
-        // const date = '12/09/2023';
-        // const priority = 'high';
-
-        // project.addItem(title, description, date, priority);
-
         taskModal.render(project);
+    } 
 
-        _renderListItems();
+    const _handleNewItemEvent = (title) => {
+        if (title === project.getTitle()) _renderListItems();
     } 
 
     const _registerEventListeners = () => {
         const addListItemButton = document.querySelector('.add-task');
         addListItemButton.addEventListener('click', _addListItem);
+    }
+
+    const _registerSubscribers = () => {
+        const NEW_ITEM = 'new list item created';
+        PubSub.subscribe(NEW_ITEM, (msg, data) => _handleNewItemEvent(data));
     }
 
     return {

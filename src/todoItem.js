@@ -13,11 +13,6 @@ export default function todoItem(title, description, dueDate, priority) {
 
     const toggleComplete = () => _complete = !_complete;
 
-    //  For development only
-    const log = () => {
-        return {_title, _description, _dueDate, _priority, _complete};
-    }
-
     return {
         getTitle,
         getDescription,
@@ -25,6 +20,5 @@ export default function todoItem(title, description, dueDate, priority) {
         getPriority,
         isComplete,
         toggleComplete,
-        log,
     }
 }

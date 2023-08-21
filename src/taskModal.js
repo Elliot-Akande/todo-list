@@ -127,10 +127,17 @@ const newTaskModal = (() => {
 
     const _confirmModal = (e) => {
         e.preventDefault();
-        // const title = document.querySelector('#project-title').value;
+        
+        const title = document.querySelector('#task-title').value;
+        const description = document.querySelector('#task-description').value;
+        const dueDate = document.querySelector('#due-date').value;
+        const priotity = document.querySelector('#priority').value;
 
-        // const RQST_NEW_LIST = 'request to create new list';
-        // PubSub.publish(RQST_NEW_LIST, title);
+        const listTitle = document.querySelector('#list').value;
+        const list = listController.getList(listTitle);
+
+        list.addItem(title, description, dueDate, priotity);
+        
         _closeModal();
     }
 
