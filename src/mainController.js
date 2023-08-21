@@ -22,9 +22,11 @@ const mainController = (() => {
     const _registerSubscribers = () => {
         const SHOW_HOME = 'home category pressed';
         const SHOW_PROJECT = 'project pressed';
+        const NEW_LIST = 'new list created';
 
         PubSub.subscribe(SHOW_HOME, (msg, data) => _renderHome(data));
         PubSub.subscribe(SHOW_PROJECT, (msg, data) => _renderProject(data));
+        PubSub.subscribe(NEW_LIST, (msg, data) => _renderProject(data));
     } 
 
     return {
