@@ -1,7 +1,6 @@
-import newTaskModal from "./newTaskModal";
+import taskModal from "./taskModal";
 
 const projectDisplay = (project) => {
-    const _project = project;
     const main = document.querySelector('main');
 
     const render = () => {
@@ -10,7 +9,7 @@ const projectDisplay = (project) => {
 
         //  Heading Text
         const header = document.createElement('h2');
-        header.textContent = _project.getTitle();
+        header.textContent = project.getTitle();
         main.appendChild(header);
 
         //  Render items
@@ -32,7 +31,7 @@ const projectDisplay = (project) => {
         const itemsDiv = document.querySelector('.tasks');
         itemsDiv.textContent = '';
 
-        _project.getItems().forEach(item => {
+        project.getItems().forEach(item => {
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('task');
             itemsDiv.appendChild(itemDiv);
@@ -50,9 +49,9 @@ const projectDisplay = (project) => {
         // const date = '12/09/2023';
         // const priority = 'high';
 
-        // _project.addItem(title, description, date, priority);
+        // project.addItem(title, description, date, priority);
 
-        newTaskModal.render();
+        taskModal.render(project);
 
         _renderListItems();
     } 

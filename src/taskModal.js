@@ -1,7 +1,9 @@
+import listController from './listController';
+
 const newTaskModal = (() => {
     const contentDiv = document.querySelector('.content');
 
-    const render = () => {
+    const render = (defaultList) => {
         //  Container
         const modalContainer = document.createElement('div');
         modalContainer.classList.add('modal-container');
@@ -66,6 +68,7 @@ const newTaskModal = (() => {
         const low = document.createElement('option');
         low.value = 'low';
         low.textContent = 'Low';
+        low.selected = true;
         priority.appendChild(low);
 
         //  Modal footer section
@@ -83,6 +86,17 @@ const newTaskModal = (() => {
         listSelect.name = 'list';
         listSelect.id = 'list';
         footerLeft.appendChild(listSelect);
+
+        listController.getListAll().forEach(list => {
+            const title = list.getTitle();
+
+            const option = document.createElement('option');
+            option.value = title;
+            option.textContent = title;
+            if (list === defaultList) option.selected = true;
+
+            listSelect.appendChild(option);
+        });
 
         //  Footer right
         const footerRight = document.createElement('div');

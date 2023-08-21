@@ -14,7 +14,7 @@ const listController = (() => {
 
     const removeList = (index) => lists.splice(index, 1);
 
-    const getList = (index) => lists[index];
+    const getList = (title) => lists.find(list => list.getTitle() === title);
 
     const getListAll = () => lists;
 

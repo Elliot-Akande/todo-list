@@ -1,6 +1,6 @@
 import PubSub from "pubsub-js";
 import listController from "./listController";
-import newProjectModal from "./newProjectModal";
+import projectModal from "./projectModal";
 
 const sidebarController = (() => {
     const contentDiv = document.querySelector('.content');
@@ -96,7 +96,7 @@ const sidebarController = (() => {
     };
 
     const _addProjectPressed = (e) => {
-        newProjectModal.render();
+        projectModal.render();
     };
 
     const _registerEventListeners = () => {
