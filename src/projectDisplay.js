@@ -52,6 +52,13 @@ const projectDisplay = (project) => {
             itemTitle.textContent = item.getTitle();
             itemTitle.classList.add('title');
             itemDiv.appendChild(itemTitle);
+
+            //  Task Complete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'delete';
+            deleteButton.classList.add('delete-button');
+            itemDiv.appendChild(deleteButton);
+            deleteButton.addEventListener('click', _deleteButtonPressed);
         });
     }
 
@@ -60,6 +67,12 @@ const projectDisplay = (project) => {
     } 
 
     const _completeButtonPressed = (e) => {
+        const taskTitle = e.target.parentNode.dataset.title;
+        project.removeItem(taskTitle);
+        _renderListItems();
+    } 
+    
+    const _deleteButtonPressed = (e) => {
         const taskTitle = e.target.parentNode.dataset.title;
         project.removeItem(taskTitle);
         _renderListItems();
