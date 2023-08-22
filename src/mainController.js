@@ -1,4 +1,5 @@
 import projectDisplay from "./projectDisplay";
+import allTasksDisplay from "./allTasksDisplay";
 
 const mainController = (() => {
     const contentDiv = document.querySelector('.content');
@@ -21,12 +22,8 @@ const mainController = (() => {
     }
 
     const _renderToday = () => {
-        const main = document.querySelector('main')
-        main.textContent = '';
-
-        const header = document.createElement('h2');
-        header.textContent = 'Today';
-        main.appendChild(header);
+        const todayDisplay = allTasksDisplay('today');
+        todayDisplay.render();
     }
 
     const _renderWeek = () => {

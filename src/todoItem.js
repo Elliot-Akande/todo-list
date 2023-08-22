@@ -6,7 +6,7 @@ export default function todoItem(title, description, dueDate, priority) {
 
     const getTitle = () => _title;
     const getDescription = () => _description;
-    const getDueDate = () => _dueDate;
+    const getDueDate = () => (new Date(_dueDate)).setHours(0, 0, 0, 0);
     const getPriority = () => _priority;
 
     return {
