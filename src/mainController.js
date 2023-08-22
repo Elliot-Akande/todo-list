@@ -10,13 +10,32 @@ const mainController = (() => {
         _registerSubscribers();
     }
 
-    const _renderHome = (category) => {
-        console.log({category});
-    }
-
     const _renderProject = (projectData) => {
         const project = projectDisplay(projectData);
         project.render();
+    }
+
+    const _renderHome = (category) => {
+        if (category === 'today') _renderToday();
+        if (category === 'week') _renderWeek();
+    }
+
+    const _renderToday = () => {
+        const main = document.querySelector('main')
+        main.textContent = '';
+
+        const header = document.createElement('h2');
+        header.textContent = 'Today';
+        main.appendChild(header);
+    }
+
+    const _renderWeek = () => {
+        const main = document.querySelector('main')
+        main.textContent = '';
+
+        const header = document.createElement('h2');
+        header.textContent = 'Next 7 Days';
+        main.appendChild(header);
     }
 
     const _registerSubscribers = () => {

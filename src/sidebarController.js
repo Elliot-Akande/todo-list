@@ -31,8 +31,12 @@ const sidebarController = (() => {
         homeList.appendChild(inbox);
 
         // Other home items
-        homeList.appendChild(_createNavItem('today', 'Today'));
-        homeList.appendChild(_createNavItem('week', 'Next 7 Days'));
+        const today = _createNavItem('today', 'Today');
+        today.classList.add('all-tasks');
+        homeList.appendChild(today);
+        const week = _createNavItem('week', 'Next 7 Days');
+        week.classList.add('all-tasks');
+        homeList.appendChild(week);
 
         //  Project Section
         const projectSection = document.createElement('div');
@@ -110,7 +114,7 @@ const sidebarController = (() => {
 
     const _registerEventListeners = () => {
         //  Home item listeners
-        const homeItems = document.querySelectorAll('.home-section li');
+        const homeItems = document.querySelectorAll('.home-section .all-tasks');
         homeItems.forEach(item => item.addEventListener('click', _homeItemPressed));
         
         //  Project listeners

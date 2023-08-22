@@ -34,10 +34,20 @@ const projectDisplay = (project) => {
         itemsDiv.textContent = '';
 
         project.getItems().forEach(item => {
+            //  Task Container
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('task');
+            itemDiv.dataset.title = item.getTitle();
             itemsDiv.appendChild(itemDiv);
 
+            //  Task Complete button
+            const completeButton = document.createElement('button');
+            completeButton.textContent = 'complete';
+            completeButton.classList.add('complete-button');
+            itemDiv.appendChild(completeButton);
+            completeButton.addEventListener('click', _completeButtonPressed);
+
+            //  Title
             const itemTitle = document.createElement('div');
             itemTitle.textContent = item.getTitle();
             itemTitle.classList.add('title');
@@ -48,6 +58,12 @@ const projectDisplay = (project) => {
     const _addListItem = () => {
         taskModal.render(project);
     } 
+
+    const _completeButtonPressed = (e) => {
+        const taskTitle = e.target.parentNode.dataset.title;
+        project.removeItem(taskTitle);
+        _renderListItems();
+    }
 
     const _handleNewItemEvent = (title) => {
         if (title === project.getTitle()) _renderListItems();
