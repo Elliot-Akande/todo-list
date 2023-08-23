@@ -1,6 +1,7 @@
 import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
 import listController from "./listController";
+import { isWithinInterval, isSameDay } from "date-fns";
 
 const allTasksDisplay = (timePeriod) => {
     const main = document.querySelector('main');
@@ -73,7 +74,8 @@ const allTasksDisplay = (timePeriod) => {
     }
 
     const _filterItems = () => {
-        const today = (new Date()).setHours(0, 0, 0, 0);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         const lists = listController.getListAll();
         const items = lists.map(list => list.getItems().map(item => {
@@ -83,13 +85,18 @@ const allTasksDisplay = (timePeriod) => {
             }
         })).flat();
 
-        if (timePeriod = 'week') {
+        if (timePeriod === 'week') {
             const nextWeek = new Date(today.valueOf());
             nextWeek.setDate(nextWeek.getDate() + 7);
 
-            return items.filter(item => item.data.getDueDate() >= today && item.data.getDueDate() < nextWeek);
+            return items.filter(item => isWithinInterval(item.data.getDueDate(), {
+                start: today,
+                end: nextWeek,
+            }));
         }
-        return items.filter(item => item.data.getDueDate() === today);
+
+        // return items.filter(item => console.log({today: typeof today, dueDate:typeof item.data.getDueDate()}));
+        return items.filter(item => isSameDay(item.data.getDueDate(), today));
     }
 
     const _addListItem = () => {
