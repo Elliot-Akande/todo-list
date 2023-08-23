@@ -53,6 +53,12 @@ const projectDisplay = (project) => {
             itemTitle.classList.add('title');
             itemDiv.appendChild(itemTitle);
 
+            //  Date
+            const dueDate = document.createElement('div');
+            dueDate.textContent = item.getDueDate().toLocaleDateString('en-GB');
+            dueDate.classList.add('title');
+            itemDiv.appendChild(dueDate);
+
             //  Task Complete button
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'delete';
