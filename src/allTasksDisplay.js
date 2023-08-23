@@ -26,8 +26,8 @@ const allTasksDisplay = () => {
         button.classList.add('add-task');
         main.appendChild(button);
 
-        // _registerEventListeners();
-        // _registerSubscribers();
+        _registerEventListeners();
+        _registerSubscribers();
     }
 
     const _renderListItems = () => {
@@ -80,9 +80,9 @@ const allTasksDisplay = () => {
         return items.filter(item => item.data.getDueDate() === today);
     }
 
-    // const _addListItem = () => {
-    //     taskModal.render(project);
-    // } 
+    const _addListItem = () => {
+        taskModal.render('Inbox', 'today');
+    }
 
     const _completeButtonPressed = (e) => {
         const taskTitle = e.target.parentNode.dataset.title;
@@ -98,19 +98,19 @@ const allTasksDisplay = () => {
         _renderListItems();
     }
 
-    // const _handleNewItemEvent = (title) => {
-    //     if (title === project.getTitle()) _renderListItems();
-    // } 
+    const _handleNewItemEvent = () => {
+        _renderListItems();
+    }
 
-    // const _registerEventListeners = () => {
-    //     const addListItemButton = document.querySelector('.add-task');
-    //     addListItemButton.addEventListener('click', _addListItem);
-    // }
+    const _registerEventListeners = () => {
+        const addListItemButton = document.querySelector('.add-task');
+        addListItemButton.addEventListener('click', _addListItem);
+    }
 
-    // const _registerSubscribers = () => {
-    //     const NEW_ITEM = 'new list item created';
-    //     PubSub.subscribe(NEW_ITEM, (msg, data) => _handleNewItemEvent(data));
-    // }
+    const _registerSubscribers = () => {
+        const NEW_ITEM = 'new list item created';
+        PubSub.subscribe(NEW_ITEM, (msg, data) => _handleNewItemEvent(data));
+    }
 
     return {
         render,

@@ -3,7 +3,7 @@ import listController from './listController';
 const newTaskModal = (() => {
     const contentDiv = document.querySelector('.content');
 
-    const render = (defaultList) => {
+    const render = (defaultList, defaultDate) => {
         //  Container
         const modalContainer = document.createElement('div');
         modalContainer.classList.add('modal-container');
@@ -46,6 +46,7 @@ const newTaskModal = (() => {
         const date = document.createElement('input');
         date.id = 'due-date';
         date.type = 'date';
+        if (defaultDate === 'today') date.valueAsDate = new Date();
         selectionContainer.appendChild(date);
 
         //  Priority selection
