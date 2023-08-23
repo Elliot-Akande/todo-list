@@ -36,65 +36,67 @@ const allTasksDisplay = () => {
 
         const items = _filterItems();
 
-        console.log(items);
+        items.forEach(item => {
+            //  Task Container
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('task');
+            itemDiv.dataset.title = item.data.getTitle();
+            itemDiv.dataset.list = item.list;
+            itemsDiv.appendChild(itemDiv);
 
-        // console.log(allLists
-        //     .map(list => list.getItems()
-        //     .filter(item => item.getDueDate().setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0))));
+            //  Task Complete button
+            const completeButton = document.createElement('button');
+            completeButton.textContent = 'complete';
+            completeButton.classList.add('complete-button');
+            itemDiv.appendChild(completeButton);
+            completeButton.addEventListener('click', _completeButtonPressed);
 
-        // const items = listController.getListAll().filter(item => )
+            //  Title
+            const itemTitle = document.createElement('div');
+            itemTitle.textContent = item.data.getTitle();
+            itemTitle.classList.add('title');
+            itemDiv.appendChild(itemTitle);
 
-        // project.getItems().forEach(item => {
-        //     //  Task Container
-        //     const itemDiv = document.createElement('div');
-        //     itemDiv.classList.add('task');
-        //     itemDiv.dataset.title = item.getTitle();
-        //     itemsDiv.appendChild(itemDiv);
-
-        //     //  Task Complete button
-        //     const completeButton = document.createElement('button');
-        //     completeButton.textContent = 'complete';
-        //     completeButton.classList.add('complete-button');
-        //     itemDiv.appendChild(completeButton);
-        //     completeButton.addEventListener('click', _completeButtonPressed);
-
-        //     //  Title
-        //     const itemTitle = document.createElement('div');
-        //     itemTitle.textContent = item.getTitle();
-        //     itemTitle.classList.add('title');
-        //     itemDiv.appendChild(itemTitle);
-
-        //     //  Task Complete button
-        //     const deleteButton = document.createElement('button');
-        //     deleteButton.textContent = 'delete';
-        //     deleteButton.classList.add('delete-button');
-        //     itemDiv.appendChild(deleteButton);
-        //     deleteButton.addEventListener('click', _deleteButtonPressed);
-        // });
+            //  Task Complete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'delete';
+            deleteButton.classList.add('delete-button');
+            itemDiv.appendChild(deleteButton);
+            deleteButton.addEventListener('click', _deleteButtonPressed);
+        });
     }
 
     const _filterItems = () => {
-        const today = (new Date()).setHours(0, 0, 0, 0); 
+        const today = (new Date()).setHours(0, 0, 0, 0);
+
         const lists = listController.getListAll();
-        const items = lists.map(list => list.getItems()).flat();
-        return items.filter(item => item.getDueDate() === today);
+        const items = lists.map(list => list.getItems().map(item => {
+            return {
+                list: list.getTitle(),
+                data: item,
+            }
+        })).flat();
+
+        return items.filter(item => item.data.getDueDate() === today);
     }
 
     // const _addListItem = () => {
     //     taskModal.render(project);
     // } 
 
-    // const _completeButtonPressed = (e) => {
-    //     const taskTitle = e.target.parentNode.dataset.title;
-    //     project.removeItem(taskTitle);
-    //     _renderListItems();
-    // } 
-    
-    // const _deleteButtonPressed = (e) => {
-    //     const taskTitle = e.target.parentNode.dataset.title;
-    //     project.removeItem(taskTitle);
-    //     _renderListItems();
-    // }
+    const _completeButtonPressed = (e) => {
+        const taskTitle = e.target.parentNode.dataset.title;
+        const projectTitle = e.target.parentNode.dataset.list;
+        listController.getList(projectTitle).removeItem(taskTitle);
+        _renderListItems();
+    }
+
+    const _deleteButtonPressed = (e) => {
+        const taskTitle = e.target.parentNode.dataset.title;
+        const projectTitle = e.target.parentNode.dataset.list;
+        listController.getList(projectTitle).removeItem(taskTitle);
+        _renderListItems();
+    }
 
     // const _handleNewItemEvent = (title) => {
     //     if (title === project.getTitle()) _renderListItems();
