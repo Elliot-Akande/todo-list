@@ -90,8 +90,10 @@ const projectDisplay = (project) => {
     
     const _editButtonPressed = (e) => {
         const taskTitle = e.target.parentNode.dataset.title;
-        project.removeItem(taskTitle);
-        _renderListItems();
+        const task = project.getItems().find(item => item.getTitle() === taskTitle);
+
+        const modal = newTaskModal(task);
+        modal.render();
     }
 
     const _deleteButtonPressed = (e) => {

@@ -75,7 +75,7 @@ const allTasksDisplay = (timePeriod) => {
 
     const _filterItems = () => {
         const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        today.setHours(12, 0, 0, 0);
 
         const lists = listController.getListAll();
         const items = lists.map(list => list.getItems().map(item => {

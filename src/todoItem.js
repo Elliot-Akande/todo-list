@@ -6,7 +6,7 @@ export default function todoItem(title, description, dueDate, priority) {
 
     function _formatDate() {
         const date = new Date(dueDate);
-        date.setHours(0, 0, 0, 0);
+        date.setHours(12, 0, 0, 0);
         return date;
     }
 

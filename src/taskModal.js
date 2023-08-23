@@ -1,6 +1,6 @@
 import listController from './listController';
 
-const newTaskModal = (mode = 'create') => {
+const taskModal = (data) => {
     const contentDiv = document.querySelector('.content');
     let _defaultDate;
     let _defaultList = 'Inbox';
@@ -30,6 +30,7 @@ const newTaskModal = (mode = 'create') => {
         taskTitle.id = 'task-title';
         taskTitle.placeholder = 'Task Name';
         taskTitle.required = true;
+        if (data) taskTitle.value = data.getTitle();
         modalMain.appendChild(taskTitle);
 
         //  Task description input
@@ -37,6 +38,7 @@ const newTaskModal = (mode = 'create') => {
         taskDescription.id = 'task-description';
         taskDescription.placeholder = 'Descripition';
         taskDescription.rows = 1;
+        if (data) taskDescription.value = data.getDescription();
         modalMain.appendChild(taskDescription);
 
         //  Selection buttons container
@@ -48,7 +50,8 @@ const newTaskModal = (mode = 'create') => {
         const date = document.createElement('input');
         date.id = 'due-date';
         date.type = 'date';
-        if (_defaultDate === 'today') date.valueAsDate = new Date();
+        if (data) date.valueAsDate = data.getDueDate();
+        else if (_defaultDate === 'today') date.valueAsDate = new Date();
         selectionContainer.appendChild(date);
 
         //  Priority selection
@@ -62,17 +65,20 @@ const newTaskModal = (mode = 'create') => {
         high.value = 'high';
         high.textContent = 'High';
         priority.appendChild(high);
-
+        
         const med = document.createElement('option');
         med.value = 'med';
         med.textContent = 'Medium';
         priority.appendChild(med);
-
+        
         const low = document.createElement('option');
         low.value = 'low';
         low.textContent = 'Low';
-        low.selected = true;
         priority.appendChild(low);
+        
+        if (data?.getPriority() === 'high') high.selected = true;
+        else if (data?.getPriority() === 'med') med.selected = true;
+        else low.selected = true;
 
         //  Modal footer section
         const modalFooter = document.createElement('div');
@@ -134,7 +140,7 @@ const newTaskModal = (mode = 'create') => {
 
     const _confirmModal = (e) => {
         e.preventDefault();
-        
+
         const title = document.querySelector('#task-title').value;
         const description = document.querySelector('#task-description').value;
         const dueDate = document.querySelector('#due-date').value;
@@ -144,7 +150,7 @@ const newTaskModal = (mode = 'create') => {
         const list = listController.getList(listTitle);
 
         list.addItem(title, description, dueDate, priotity);
-        
+
         _closeModal();
     }
 
@@ -163,4 +169,4 @@ const newTaskModal = (mode = 'create') => {
     }
 };
 
-export default newTaskModal;
+export default taskModal;
