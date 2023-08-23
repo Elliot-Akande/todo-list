@@ -1,5 +1,6 @@
 import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
+import newTaskModal from "./taskModal";
 
 const projectDisplay = (project) => {
     const main = document.querySelector('main');
@@ -59,7 +60,14 @@ const projectDisplay = (project) => {
             dueDate.classList.add('title');
             itemDiv.appendChild(dueDate);
 
-            //  Task Complete button
+            //  Edit button
+            const EditButton = document.createElement('button');
+            EditButton.textContent = 'edit';
+            EditButton.classList.add('edit-button');
+            itemDiv.appendChild(EditButton);
+            EditButton.addEventListener('click', _editButtonPressed);
+
+            //  Delete button
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'delete';
             deleteButton.classList.add('delete-button');
@@ -69,7 +77,9 @@ const projectDisplay = (project) => {
     }
 
     const _addListItem = () => {
-        taskModal.render(project);
+        const modal = newTaskModal();
+        modal.setDefaultList(project);
+        modal.render();
     } 
 
     const _completeButtonPressed = (e) => {
@@ -78,6 +88,12 @@ const projectDisplay = (project) => {
         _renderListItems();
     } 
     
+    const _editButtonPressed = (e) => {
+        const taskTitle = e.target.parentNode.dataset.title;
+        project.removeItem(taskTitle);
+        _renderListItems();
+    }
+
     const _deleteButtonPressed = (e) => {
         const taskTitle = e.target.parentNode.dataset.title;
         project.removeItem(taskTitle);

@@ -64,7 +64,7 @@ const allTasksDisplay = (timePeriod) => {
             dueDate.classList.add('title');
             itemDiv.appendChild(dueDate);
 
-            //  Task Complete button
+            //  Delete button
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'delete';
             deleteButton.classList.add('delete-button');
@@ -95,12 +95,13 @@ const allTasksDisplay = (timePeriod) => {
             }));
         }
 
-        // return items.filter(item => console.log({today: typeof today, dueDate:typeof item.data.getDueDate()}));
         return items.filter(item => isSameDay(item.data.getDueDate(), today));
     }
 
     const _addListItem = () => {
-        taskModal.render('Inbox', 'today');
+        const modal = taskModal();
+        modal.setDefaultDate('today');
+        modal.render();
     }
 
     const _completeButtonPressed = (e) => {

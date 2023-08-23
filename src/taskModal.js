@@ -1,9 +1,11 @@
 import listController from './listController';
 
-const newTaskModal = (() => {
+const newTaskModal = (mode = 'create') => {
     const contentDiv = document.querySelector('.content');
+    let _defaultDate;
+    let _defaultList = 'Inbox';
 
-    const render = (defaultList, defaultDate) => {
+    const render = () => {
         //  Container
         const modalContainer = document.createElement('div');
         modalContainer.classList.add('modal-container');
@@ -46,7 +48,7 @@ const newTaskModal = (() => {
         const date = document.createElement('input');
         date.id = 'due-date';
         date.type = 'date';
-        if (defaultDate === 'today') date.valueAsDate = new Date();
+        if (_defaultDate === 'today') date.valueAsDate = new Date();
         selectionContainer.appendChild(date);
 
         //  Priority selection
@@ -94,7 +96,7 @@ const newTaskModal = (() => {
             const option = document.createElement('option');
             option.value = title;
             option.textContent = title;
-            if (list === defaultList) option.selected = true;
+            if (list === _defaultList) option.selected = true;
 
             listSelect.appendChild(option);
         });
@@ -120,6 +122,10 @@ const newTaskModal = (() => {
 
         _registerEventListeners();
     }
+
+    const setDefaultDate = date => _defaultDate = date;
+
+    const setDefaultList = list => _defaultList = list;
 
     const _closeModal = () => {
         const modalContainer = document.querySelector('.modal-container');
@@ -152,7 +158,9 @@ const newTaskModal = (() => {
 
     return {
         render,
+        setDefaultDate,
+        setDefaultList,
     }
-})();
+};
 
 export default newTaskModal;
