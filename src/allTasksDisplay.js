@@ -2,7 +2,7 @@ import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
 import listController from "./listController";
 
-const allTasksDisplay = () => {
+const allTasksDisplay = (timePeriod) => {
     const main = document.querySelector('main');
 
     const render = () => {
@@ -11,7 +11,7 @@ const allTasksDisplay = () => {
 
         //  Heading Text
         const header = document.createElement('h2');
-        header.textContent = 'Today';
+        header.textContent = timePeriod === 'today' ? 'Today' : 'Next 7 Days';
         main.appendChild(header);
 
         //  Render items
@@ -77,6 +77,12 @@ const allTasksDisplay = () => {
             }
         })).flat();
 
+        if (timePeriod = 'week') {
+            const nextWeek = new Date(today.valueOf());
+            nextWeek.setDate(nextWeek.getDate() + 7);
+
+            return items.filter(item => item.data.getDueDate() >= today && item.data.getDueDate() < nextWeek);
+        }
         return items.filter(item => item.data.getDueDate() === today);
     }
 

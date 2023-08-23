@@ -17,22 +17,8 @@ const mainController = (() => {
     }
 
     const _renderHome = (category) => {
-        if (category === 'today') _renderToday();
-        if (category === 'week') _renderWeek();
-    }
-
-    const _renderToday = () => {
-        const todayDisplay = allTasksDisplay('today');
-        todayDisplay.render();
-    }
-
-    const _renderWeek = () => {
-        const main = document.querySelector('main')
-        main.textContent = '';
-
-        const header = document.createElement('h2');
-        header.textContent = 'Next 7 Days';
-        main.appendChild(header);
+        const display = allTasksDisplay(category);
+        display.render();
     }
 
     const _registerSubscribers = () => {
