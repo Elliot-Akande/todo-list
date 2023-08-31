@@ -1,7 +1,7 @@
 import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
 import listController from "./listController";
-import { isWithinInterval, isSameDay } from "date-fns";
+import { isWithinInterval, isSameDay, compareAsc } from "date-fns";
 
 const allTasksDisplay = (timePeriod) => {
     const main = document.querySelector('main');
@@ -109,7 +109,7 @@ const allTasksDisplay = (timePeriod) => {
             return items.filter(item => isWithinInterval(item.data.getDueDate(), {
                 start: today,
                 end: nextWeek,
-            }));
+            })).sort((a, b) => compareAsc(a.data.getDueDate(), b.data.getDueDate()));
         }
 
         return items.filter(item => isSameDay(item.data.getDueDate(), today));
