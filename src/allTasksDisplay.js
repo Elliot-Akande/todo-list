@@ -58,6 +58,14 @@ const allTasksDisplay = (timePeriod) => {
             itemTitle.classList.add('title');
             itemDiv.appendChild(itemTitle);
 
+            //  Description
+            if (item.data.getDescription()) {
+                const itemDescription = document.createElement('div');
+                itemDescription.textContent = item.data.getDescription();
+                itemDescription.classList.add('description');
+                itemDiv.appendChild(itemDescription);
+            }
+
             //  Date
             const dueDate = document.createElement('div');
             dueDate.textContent = item.data.getDueDate().toLocaleDateString('en-GB');
@@ -122,8 +130,8 @@ const allTasksDisplay = (timePeriod) => {
         const taskTitle = e.target.parentNode.dataset.title;
         const listTitle = e.target.parentNode.dataset.list;
         const task = listController.getList(listTitle)
-                                   .getItems()
-                                   .find(item => item.getTitle() === taskTitle);
+            .getItems()
+            .find(item => item.getTitle() === taskTitle);
 
         const modal = taskModal(task);
         modal.render();

@@ -53,6 +53,14 @@ const projectDisplay = (project) => {
             itemTitle.classList.add('title');
             itemDiv.appendChild(itemTitle);
 
+            //  Description
+            if (item.getDescription()) {
+                const itemDescription = document.createElement('div');
+                itemDescription.textContent = item.getDescription();
+                itemDescription.classList.add('description');
+                itemDiv.appendChild(itemDescription);
+            }
+
             //  Date
             const date = item.getDueDate();
             if (date instanceof Date && !isNaN(date)) {
@@ -122,7 +130,7 @@ const projectDisplay = (project) => {
         const NEW_ITEM = 'new list item created';
         const ITEM_UPDATED = 'item values updated';
         const LIST_TITLE_UPDATE = 'list title updated';
-        
+
         PubSub.subscribe(NEW_ITEM, (msg, data) => _handleNewItemEvent(data));
         PubSub.subscribe(ITEM_UPDATED, _renderListItems);
         PubSub.subscribe(LIST_TITLE_UPDATE, _rerenderTitle);
