@@ -92,21 +92,23 @@ const taskModal = (data) => {
         modalFooter.appendChild(footerLeft);
 
         //  List selection
-        const listSelect = document.createElement('select');
-        listSelect.name = 'list';
-        listSelect.id = 'list';
-        footerLeft.appendChild(listSelect);
+        if (!data) {
+            const listSelect = document.createElement('select');
+            listSelect.name = 'list';
+            listSelect.id = 'list';
+            footerLeft.appendChild(listSelect);
 
-        listController.getListAll().forEach(list => {
-            const title = list.getTitle();
+            listController.getListAll().forEach(list => {
+                const title = list.getTitle();
 
-            const option = document.createElement('option');
-            option.value = title;
-            option.textContent = title;
-            if (list === _defaultList) option.selected = true;
+                const option = document.createElement('option');
+                option.value = title;
+                option.textContent = title;
+                if (list === _defaultList) option.selected = true;
 
-            listSelect.appendChild(option);
-        });
+                listSelect.appendChild(option);
+            });
+        }
 
         //  Footer right
         const footerRight = document.createElement('div');
@@ -147,12 +149,13 @@ const taskModal = (data) => {
         const dueDate = document.querySelector('#due-date').value;
         const priotity = document.querySelector('#priority').value;
 
-        const listTitle = document.querySelector('#list').value;
-        const list = listController.getList(listTitle);
-
-        (!data) ?   //    If no data then create new item
-            list.addItem(title, description, dueDate, priotity) :
+        if (!data) {
+            const listTitle = document.querySelector('#list').value;
+            const list = listController.getList(listTitle);
+            list.addItem(title, description, dueDate, priotity);
+        } else {
             editItem(title, description, dueDate, priotity);
+        }
 
         _closeModal();
     }
