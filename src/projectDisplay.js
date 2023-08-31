@@ -54,11 +54,14 @@ const projectDisplay = (project) => {
             itemDiv.appendChild(itemTitle);
 
             //  Date
-            const dueDate = document.createElement('div');
-            console.log({date: item.getDueDate()});
-            dueDate.textContent = item.getDueDate().toLocaleDateString('en-GB');
-            dueDate.classList.add('title');
-            itemDiv.appendChild(dueDate);
+            const date = item.getDueDate();
+            if (date instanceof Date && !isNaN(date)) {
+                console.log(typeof date)
+                const dueDate = document.createElement('div');
+                dueDate.textContent = date.toLocaleDateString('en-GB');
+                dueDate.classList.add('title');
+                itemDiv.appendChild(dueDate);
+            }
 
             //  Edit button
             const EditButton = document.createElement('button');
@@ -80,14 +83,14 @@ const projectDisplay = (project) => {
         const modal = taskModal();
         modal.setDefaultList(project);
         modal.render();
-    } 
+    }
 
     const _completeButtonPressed = (e) => {
         const taskTitle = e.target.parentNode.dataset.title;
         project.removeItem(taskTitle);
         _renderListItems();
-    } 
-    
+    }
+
     const _editButtonPressed = (e) => {
         const taskTitle = e.target.parentNode.dataset.title;
         const task = project.getItems().find(item => item.getTitle() === taskTitle);
@@ -104,7 +107,7 @@ const projectDisplay = (project) => {
 
     const _handleNewItemEvent = (title) => {
         if (title === project.getTitle()) _renderListItems();
-    } 
+    }
 
     const _registerEventListeners = () => {
         const addListItemButton = document.querySelector('.add-task');
