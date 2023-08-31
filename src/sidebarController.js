@@ -90,6 +90,20 @@ const sidebarController = (() => {
         projectTitle.textContent = data.getTitle();
         project.appendChild(projectTitle);
 
+        //  Edit button
+        const EditButton = document.createElement('button');
+        EditButton.textContent = 'edit';
+        EditButton.classList.add('edit-button');
+        project.appendChild(EditButton);
+        EditButton.addEventListener('click', _editButtonPressed);
+
+        //  Delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'delete';
+        deleteButton.classList.add('delete-button');
+        project.appendChild(deleteButton);
+        deleteButton.addEventListener('click', _deleteButtonPressed);
+
         project.addEventListener('click', _projectPressed);
     }; 
 
@@ -109,8 +123,31 @@ const sidebarController = (() => {
     };
 
     const _addProjectPressed = (e) => {
-        projectModal.render();
+        const modal = projectModal();
+        modal.render();
     };
+
+    const _editButtonPressed = (e) => {
+        const title = e.target.parentNode.dataset.title;
+        const project = listController.getList(title);
+
+        const modal = projectModal(project);
+        modal.render();
+    }
+
+    const _deleteButtonPressed = (e) => {
+        // const taskTitle = e.target.parentNode.dataset.title;
+        // project.removeItem(taskTitle);
+        // _renderListItems();
+    }
+
+    const _updateProject = data => {
+        const project = document.querySelector(`[data-title='${data.oldTitle}']`);
+        project.dataset.title = data.newTitle;
+
+        const titleDiv = project.querySelector('.title');
+        titleDiv.textContent = data.newTitle;
+    }
 
     const _registerEventListeners = () => {
         //  Home item listeners
@@ -129,8 +166,10 @@ const sidebarController = (() => {
 
     const _registerSubscribers = () => {
         const NEW_LIST = 'new list created';
-
+        const LIST_TITLE_UPDATE = 'list title updated';
+        
         PubSub.subscribe(NEW_LIST, (msg, data) => _renderNewProject(data));
+        PubSub.subscribe(LIST_TITLE_UPDATE, (msg, data) => _updateProject(data));
     }
 
 

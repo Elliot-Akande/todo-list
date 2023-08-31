@@ -2,11 +2,13 @@ import PubSub from "pubsub-js";
 import todoItem from "./todoItem";
 
 export default function todoList(title) {
-    const _title = title;
+    let _title = title;
     const _listItems = [];
 
     const getTitle = () => _title;
     const getItems = () => _listItems;
+
+    const setTitle = title => _title = title;
 
     const addItem = (title, description, dueDate, priority) => {
         const item = todoItem(title, description, dueDate, priority);
@@ -31,6 +33,7 @@ export default function todoList(title) {
     return {
         getTitle,
         getItems,
+        setTitle,
         addItem,
         removeItem,
         toggleItemComplete,

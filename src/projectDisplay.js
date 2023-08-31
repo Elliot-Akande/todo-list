@@ -56,7 +56,6 @@ const projectDisplay = (project) => {
             //  Date
             const date = item.getDueDate();
             if (date instanceof Date && !isNaN(date)) {
-                console.log(typeof date)
                 const dueDate = document.createElement('div');
                 dueDate.textContent = date.toLocaleDateString('en-GB');
                 dueDate.classList.add('title');
@@ -109,6 +108,11 @@ const projectDisplay = (project) => {
         if (title === project.getTitle()) _renderListItems();
     }
 
+    const _rerenderTitle = () => {
+        const titleDiv = main.querySelector('h2');
+        titleDiv.textContent = project.getTitle();
+    }
+
     const _registerEventListeners = () => {
         const addListItemButton = document.querySelector('.add-task');
         addListItemButton.addEventListener('click', _addListItem);
@@ -117,9 +121,11 @@ const projectDisplay = (project) => {
     const _registerSubscribers = () => {
         const NEW_ITEM = 'new list item created';
         const ITEM_UPDATED = 'item values updated';
-
+        const LIST_TITLE_UPDATE = 'list title updated';
+        
         PubSub.subscribe(NEW_ITEM, (msg, data) => _handleNewItemEvent(data));
         PubSub.subscribe(ITEM_UPDATED, _renderListItems);
+        PubSub.subscribe(LIST_TITLE_UPDATE, _rerenderTitle);
     }
 
     return {

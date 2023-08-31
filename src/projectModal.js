@@ -1,6 +1,6 @@
 import PubSub from "pubsub-js";
 
-const newProjectModal = (() => {
+const projectModal = (data) => {
     const contentDiv = document.querySelector('.content');
 
     const render = () => {
@@ -35,6 +35,7 @@ const newProjectModal = (() => {
         input.id = 'project-title';
         input.required = true;
         input.maxLength = 20;
+        if (data) input.value = data.getTitle();
         form.appendChild(input);
 
         //  Error Message
@@ -55,9 +56,9 @@ const newProjectModal = (() => {
         cancel.classList.add('modal-cancel');
         buttonsDiv.appendChild(cancel);
 
-        //  Add project button
+        //  Confirm button
         const confirm = document.createElement('button');
-        confirm.textContent = 'Add Project';
+        confirm.textContent = data ? 'Save' : 'Add Project';
         confirm.type = 'submit';
         confirm.classList.add('modal-confirm');
         buttonsDiv.appendChild(confirm);
@@ -74,8 +75,15 @@ const newProjectModal = (() => {
         e.preventDefault();
         const title = document.querySelector('#project-title').value;
 
-        const RQST_NEW_LIST = 'request to create new list';
-        PubSub.publish(RQST_NEW_LIST, title);
+        if (!data) {
+            const RQST_NEW_LIST = 'request to create new list';
+            PubSub.publish(RQST_NEW_LIST, title);
+        } else {
+            const LIST_TITLE_UPDATE = 'list title updated';
+            PubSub.publish(LIST_TITLE_UPDATE, {oldTitle: data.getTitle(), newTitle: title});
+            data.setTitle(title);
+        }
+
         _closeModal();
     }
 
@@ -90,6 +98,6 @@ const newProjectModal = (() => {
     return {
         render,
     }
-})();
+};
 
-export default newProjectModal;
+export default projectModal;
