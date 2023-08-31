@@ -1,6 +1,5 @@
 import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
-import newTaskModal from "./taskModal";
 
 const projectDisplay = (project) => {
     const main = document.querySelector('main');
@@ -78,7 +77,7 @@ const projectDisplay = (project) => {
     }
 
     const _addListItem = () => {
-        const modal = newTaskModal();
+        const modal = taskModal();
         modal.setDefaultList(project);
         modal.render();
     } 
@@ -93,7 +92,7 @@ const projectDisplay = (project) => {
         const taskTitle = e.target.parentNode.dataset.title;
         const task = project.getItems().find(item => item.getTitle() === taskTitle);
 
-        const modal = newTaskModal(task);
+        const modal = taskModal(task);
         modal.render();
     }
 

@@ -9,6 +9,7 @@ const mainController = (() => {
         contentDiv.appendChild(main);
 
         _registerSubscribers();
+        _renderHome('today');
     }
 
     const _renderProject = (projectData) => {

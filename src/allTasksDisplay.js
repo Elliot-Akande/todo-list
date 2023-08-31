@@ -64,6 +64,13 @@ const allTasksDisplay = (timePeriod) => {
             dueDate.classList.add('title');
             itemDiv.appendChild(dueDate);
 
+            //  Edit button
+            const EditButton = document.createElement('button');
+            EditButton.textContent = 'edit';
+            EditButton.classList.add('edit-button');
+            itemDiv.appendChild(EditButton);
+            EditButton.addEventListener('click', _editButtonPressed);
+
             //  Delete button
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'delete';
@@ -111,6 +118,17 @@ const allTasksDisplay = (timePeriod) => {
         _renderListItems();
     }
 
+    const _editButtonPressed = (e) => {
+        const taskTitle = e.target.parentNode.dataset.title;
+        const listTitle = e.target.parentNode.dataset.list;
+        const task = listController.getList(listTitle)
+                                   .getItems()
+                                   .find(item => item.getTitle() === taskTitle);
+
+        const modal = taskModal(task);
+        modal.render();
+    }
+
     const _deleteButtonPressed = (e) => {
         const taskTitle = e.target.parentNode.dataset.title;
         const projectTitle = e.target.parentNode.dataset.list;
@@ -129,7 +147,10 @@ const allTasksDisplay = (timePeriod) => {
 
     const _registerSubscribers = () => {
         const NEW_ITEM = 'new list item created';
+        const ITEM_UPDATED = 'item values updated';
+
         PubSub.subscribe(NEW_ITEM, (msg, data) => _handleNewItemEvent(data));
+        PubSub.subscribe(ITEM_UPDATED, _renderListItems);
     }
 
     return {
