@@ -23,9 +23,8 @@ export default function todoList(title) {
     //     _listItems[_listItems.indexOf(title)] = newItem;
     // };
 
-    const removeItem = title => {
-        const titles = _listItems.map(item => item.getTitle());
-        return _listItems.splice(titles.indexOf(title), 1);
+    const removeItem = index => {
+        return _listItems.splice(index, 1);
     };
 
     const toggleItemComplete = index => _listItems[index].toggleComplete();

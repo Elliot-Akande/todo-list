@@ -99,11 +99,9 @@ const taskModal = (data) => {
             footerLeft.appendChild(listSelect);
 
             listController.getListAll().forEach(list => {
-                const title = list.getTitle();
-
                 const option = document.createElement('option');
-                option.value = title;
-                option.textContent = title;
+                option.value = listController.getListAll().indexOf(list);
+                option.textContent = list.getTitle();
                 if (list === _defaultList) option.selected = true;
 
                 listSelect.appendChild(option);

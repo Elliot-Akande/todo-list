@@ -33,11 +33,11 @@ const projectDisplay = (project) => {
         const itemsDiv = document.querySelector('.tasks');
         itemsDiv.textContent = '';
 
-        project.getItems().forEach(item => {
+        project.getItems().forEach((item, index) => {
             //  Task Container
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('task');
-            itemDiv.dataset.title = item.getTitle();
+            itemDiv.dataset.index = index;
             itemsDiv.appendChild(itemDiv);
 
             //  Task Complete button
@@ -93,22 +93,20 @@ const projectDisplay = (project) => {
     }
 
     const _completeButtonPressed = (e) => {
-        const taskTitle = e.target.parentNode.dataset.title;
-        project.removeItem(taskTitle);
-        _renderListItems();
+        _deleteButtonPressed(e);
     }
 
     const _editButtonPressed = (e) => {
-        const taskTitle = e.target.parentNode.dataset.title;
-        const task = project.getItems().find(item => item.getTitle() === taskTitle);
+        const index = e.target.parentNode.dataset.index;
+        const task = project.getItems()[index];
 
         const modal = taskModal(task);
         modal.render();
     }
 
     const _deleteButtonPressed = (e) => {
-        const taskTitle = e.target.parentNode.dataset.title;
-        project.removeItem(taskTitle);
+        const taskIndex = e.target.parentNode.dataset.index;
+        project.removeItem(taskIndex);
         _renderListItems();
     }
 

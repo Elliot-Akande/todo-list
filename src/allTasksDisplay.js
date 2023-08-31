@@ -41,8 +41,8 @@ const allTasksDisplay = (timePeriod) => {
             //  Task Container
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('task');
-            itemDiv.dataset.title = item.data.getTitle();
-            itemDiv.dataset.list = item.list;
+            itemDiv.dataset.index = item.itemIndex;
+            itemDiv.dataset.list = item.listIndex;
             itemsDiv.appendChild(itemDiv);
 
             //  Task Complete button
@@ -92,11 +92,13 @@ const allTasksDisplay = (timePeriod) => {
         const today = new Date();
         today.setHours(12, 0, 0, 0);
 
+        //  Get array of all objects containing a task and the project it belongs to
         const lists = listController.getListAll();
         const items = lists.map(list => list.getItems().map(item => {
             return {
-                list: list.getTitle(),
                 data: item,
+                itemIndex: list.getItems().indexOf(item),
+                listIndex: listController.getListAll().indexOf(list),
             }
         })).flat();
 
@@ -113,6 +115,7 @@ const allTasksDisplay = (timePeriod) => {
         return items.filter(item => isSameDay(item.data.getDueDate(), today));
     }
 
+
     const _addListItem = () => {
         const modal = taskModal();
         modal.setDefaultDate('today');
@@ -120,27 +123,22 @@ const allTasksDisplay = (timePeriod) => {
     }
 
     const _completeButtonPressed = (e) => {
-        const taskTitle = e.target.parentNode.dataset.title;
-        const projectTitle = e.target.parentNode.dataset.list;
-        listController.getList(projectTitle).removeItem(taskTitle);
-        _renderListItems();
+        _deleteButtonPressed(e);
     }
 
     const _editButtonPressed = (e) => {
-        const taskTitle = e.target.parentNode.dataset.title;
-        const listTitle = e.target.parentNode.dataset.list;
-        const task = listController.getList(listTitle)
-            .getItems()
-            .find(item => item.getTitle() === taskTitle);
+        const taskIndex = e.target.parentNode.dataset.index;
+        const listIndex = e.target.parentNode.dataset.list;
+        const task = listController.getList(listIndex).getItems()[taskIndex]
 
         const modal = taskModal(task);
         modal.render();
     }
 
     const _deleteButtonPressed = (e) => {
-        const taskTitle = e.target.parentNode.dataset.title;
-        const projectTitle = e.target.parentNode.dataset.list;
-        listController.getList(projectTitle).removeItem(taskTitle);
+        const taskIndex = e.target.parentNode.dataset.index;
+        const projectIndex = e.target.parentNode.dataset.list;
+        listController.getList(projectIndex).removeItem(taskIndex);
         _renderListItems();
     }
 

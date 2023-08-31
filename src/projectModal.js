@@ -1,4 +1,5 @@
 import PubSub from "pubsub-js";
+import listController from "./listController";
 
 const projectModal = (data) => {
     const contentDiv = document.querySelector('.content');
@@ -80,8 +81,8 @@ const projectModal = (data) => {
             PubSub.publish(RQST_NEW_LIST, title);
         } else {
             const LIST_TITLE_UPDATE = 'list title updated';
-            PubSub.publish(LIST_TITLE_UPDATE, {oldTitle: data.getTitle(), newTitle: title});
             data.setTitle(title);
+            PubSub.publish(LIST_TITLE_UPDATE, listController.getListAll().indexOf(data));
         }
 
         _closeModal();

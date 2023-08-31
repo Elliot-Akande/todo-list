@@ -26,7 +26,7 @@ const sidebarController = (() => {
         // Inbox 
         const inbox = _createNavItem('inbox', 'Inbox');
         listController.newList('Inbox');
-        inbox.dataset.title = 'Inbox';
+        inbox.dataset.index = 0;
         inbox.addEventListener('click', _projectPressed);
         homeList.appendChild(inbox);
 
@@ -81,7 +81,7 @@ const sidebarController = (() => {
         //  Project container
         const project = document.createElement('div');
         project.classList.add('project');
-        project.dataset.title = data.getTitle();
+        project.dataset.index = listController.getListAll().indexOf(data);
         projectSection.appendChild(project);
 
         //  Title
@@ -115,8 +115,8 @@ const sidebarController = (() => {
     };
 
     const _projectPressed = (e) => {
-        const title = e.currentTarget.dataset.title;
-        const project = listController.getList(title);
+        const index = e.currentTarget.dataset.index;
+        const project = listController.getList(index);
         
         const SHOW_PROJECT = 'project pressed';
         PubSub.publish(SHOW_PROJECT, project);
@@ -128,8 +128,8 @@ const sidebarController = (() => {
     };
 
     const _editButtonPressed = (e) => {
-        const title = e.target.parentNode.dataset.title;
-        const project = listController.getList(title);
+        const index = e.target.parentNode.dataset.index;
+        const project = listController.getList(index);
 
         const modal = projectModal(project);
         modal.render();
@@ -141,12 +141,9 @@ const sidebarController = (() => {
         // _renderListItems();
     }
 
-    const _updateProject = data => {
-        const project = document.querySelector(`[data-title='${data.oldTitle}']`);
-        project.dataset.title = data.newTitle;
-
-        const titleDiv = project.querySelector('.title');
-        titleDiv.textContent = data.newTitle;
+    const _updateProject = index => {
+        const titleDiv = document.querySelector(`.project[data-index='${index}']`);
+        titleDiv.textContent = listController.getList(index).getTitle();
     }
 
     const _registerEventListeners = () => {
