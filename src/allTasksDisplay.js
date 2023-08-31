@@ -61,7 +61,7 @@ const allTasksDisplay = (timePeriod) => {
             //  Date
             const dueDate = document.createElement('div');
             dueDate.textContent = item.data.getDueDate().toLocaleDateString('en-GB');
-            dueDate.classList.add('title');
+            dueDate.classList.add('dueDate');
             itemDiv.appendChild(dueDate);
 
             //  Edit button

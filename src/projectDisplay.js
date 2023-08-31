@@ -58,7 +58,7 @@ const projectDisplay = (project) => {
             if (date instanceof Date && !isNaN(date)) {
                 const dueDate = document.createElement('div');
                 dueDate.textContent = date.toLocaleDateString('en-GB');
-                dueDate.classList.add('title');
+                dueDate.classList.add('dueDate');
                 itemDiv.appendChild(dueDate);
             }
 
