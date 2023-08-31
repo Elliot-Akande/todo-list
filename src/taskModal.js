@@ -1,4 +1,5 @@
 import listController from './listController';
+import PubSub from 'pubsub-js';
 
 const taskModal = (data) => {
     const contentDiv = document.querySelector('.content');
@@ -65,17 +66,17 @@ const taskModal = (data) => {
         high.value = 'high';
         high.textContent = 'High';
         priority.appendChild(high);
-        
+
         const med = document.createElement('option');
         med.value = 'med';
         med.textContent = 'Medium';
         priority.appendChild(med);
-        
+
         const low = document.createElement('option');
         low.value = 'low';
         low.textContent = 'Low';
         priority.appendChild(low);
-        
+
         if (data?.getPriority() === 'high') high.selected = true;
         else if (data?.getPriority() === 'med') med.selected = true;
         else low.selected = true;
@@ -119,9 +120,9 @@ const taskModal = (data) => {
         cancel.classList.add('modal-cancel');
         footerRight.appendChild(cancel);
 
-        //  Add task button
+        //  Confirm button
         const confirm = document.createElement('button');
-        confirm.textContent = 'Add Task';
+        data ? confirm.textContent = 'Save' : confirm.textContent = 'Add Task';
         confirm.type = 'submit';
         confirm.classList.add('modal-confirm');
         footerRight.appendChild(confirm);
@@ -149,9 +150,21 @@ const taskModal = (data) => {
         const listTitle = document.querySelector('#list').value;
         const list = listController.getList(listTitle);
 
-        list.addItem(title, description, dueDate, priotity);
+        (!data) ?   //    If no data then create new item
+            list.addItem(title, description, dueDate, priotity) :
+            editItem(title, description, dueDate, priotity);
 
         _closeModal();
+    }
+
+    const editItem = (title, description, dueDate, priotity) => {
+        data.setTitle(title);
+        data.setDescription(description);
+        data.setDueDate(dueDate);
+        data.setPriority(priotity);
+
+        const ITEM_UPDATED = 'item values updated';
+        PubSub.publish(ITEM_UPDATED, data);
     }
 
     const _registerEventListeners = () => {

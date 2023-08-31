@@ -56,6 +56,7 @@ const projectDisplay = (project) => {
 
             //  Date
             const dueDate = document.createElement('div');
+            console.log({date: item.getDueDate()});
             dueDate.textContent = item.getDueDate().toLocaleDateString('en-GB');
             dueDate.classList.add('title');
             itemDiv.appendChild(dueDate);
@@ -113,7 +114,10 @@ const projectDisplay = (project) => {
 
     const _registerSubscribers = () => {
         const NEW_ITEM = 'new list item created';
+        const ITEM_UPDATED = 'item values updated';
+
         PubSub.subscribe(NEW_ITEM, (msg, data) => _handleNewItemEvent(data));
+        PubSub.subscribe(ITEM_UPDATED, _renderListItems);
     }
 
     return {

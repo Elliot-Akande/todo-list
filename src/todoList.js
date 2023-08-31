@@ -16,10 +16,10 @@ export default function todoList(title) {
         PubSub.publish(NEW_ITEM, _title);
     };
 
-    const editItem = (index, title, description, dueDate, priority) => {
-        const newItem = todoItem(title, description, dueDate, priority);
-        _listItems[index] = newItem;
-    };
+    // const editItem = (title, newTitle, description, dueDate, priority) => {
+    //     const newItem = todoItem(newTitle, description, dueDate, priority);
+    //     _listItems[_listItems.indexOf(title)] = newItem;
+    // };
 
     const removeItem = title => {
         const titles = _listItems.map(item => item.getTitle());
@@ -32,7 +32,6 @@ export default function todoList(title) {
         getTitle,
         getItems,
         addItem,
-        editItem,
         removeItem,
         toggleItemComplete,
     };
