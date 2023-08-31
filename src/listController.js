@@ -12,7 +12,7 @@ const listController = (() => {
         PubSub.publish(NEW_LIST, list);
     }
 
-    const removeList = (index) => lists.splice(index, 1);
+    const removeList = index => lists.splice(index, 1);
 
     const getList = index => lists[index];
 

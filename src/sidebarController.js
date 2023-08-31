@@ -128,6 +128,8 @@ const sidebarController = (() => {
     };
 
     const _editButtonPressed = (e) => {
+        e.stopPropagation();
+
         const index = e.target.parentNode.dataset.index;
         const project = listController.getList(index);
 
@@ -136,14 +138,29 @@ const sidebarController = (() => {
     }
 
     const _deleteButtonPressed = (e) => {
-        // const taskTitle = e.target.parentNode.dataset.title;
-        // project.removeItem(taskTitle);
-        // _renderListItems();
+        e.stopPropagation();
+
+        const index = e.target.parentNode.dataset.index;
+        listController.removeList(index);
+
+        const LIST_DELETED = 'list has been deleted';
+        PubSub.publish(LIST_DELETED, index);
+
+        _removeProject(index);
     }
 
     const _updateProject = index => {
-        const titleDiv = document.querySelector(`.project[data-index='${index}']`);
+        const titleDiv = document.querySelector(`.project[data-index='${index}']>.title`);
         titleDiv.textContent = listController.getList(index).getTitle();
+    }
+
+    const _removeProject = index => {
+        const project = document.querySelector(`.project[data-index='${index}']`);
+        project.remove();
+
+        const projectSection = document.querySelector('.projects-div');
+        projectSection.textContent = '';
+        listController.getListAll().slice(1).forEach(list => _renderNewProject(list));
     }
 
     const _registerEventListeners = () => {

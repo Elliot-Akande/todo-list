@@ -146,6 +146,8 @@ const allTasksDisplay = (timePeriod) => {
         _renderListItems();
     }
 
+    
+
     const _registerEventListeners = () => {
         const addListItemButton = document.querySelector('.add-task');
         addListItemButton.addEventListener('click', _addListItem);
@@ -154,9 +156,11 @@ const allTasksDisplay = (timePeriod) => {
     const _registerSubscribers = () => {
         const NEW_ITEM = 'new list item created';
         const ITEM_UPDATED = 'item values updated';
+        const LIST_DELETED = 'list has been deleted';
 
-        PubSub.subscribe(NEW_ITEM, (msg, data) => _handleNewItemEvent(data));
+        PubSub.subscribe(NEW_ITEM, _renderListItems);
         PubSub.subscribe(ITEM_UPDATED, _renderListItems);
+        PubSub.subscribe(LIST_DELETED, _renderListItems);
     }
 
     return {
