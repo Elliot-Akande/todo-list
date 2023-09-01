@@ -3,21 +3,9 @@ import listController from "./listController";
 
 const storageController = (() => {
     const init = () => {
-        if (!localStorage.getItem('data')) {
-            _initData();
-        } else {
-            _populateLists();
-        }
-
-        _registerSubscribers();
-    }
-
-    const _initData = () => {
-        _setData([_getEmptyList('Inbox')]);
-    }
-
-    const _populateLists = () => {
+        if (!localStorage.getItem('data')) _setData([_getEmptyList('Inbox')]);;
         listController.populate(_getData());
+        _registerSubscribers();
     }
 
     const _getEmptyList = title => {
@@ -64,7 +52,7 @@ const storageController = (() => {
             dueDate: item.getDueDate(),
             priority: item.getPriority(),
         });
-        
+
         _setData(data);
     }
 
