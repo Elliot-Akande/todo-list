@@ -45,13 +45,27 @@ const storageController = (() => {
         const data = _getData();
 
         const index = listController.getListAll().indexOf(list);
-        console.log(index);
         data[index].items.push({
             title: item.getTitle(),
             description: item.getDescription(),
             dueDate: item.getDueDate(),
             priority: item.getPriority(),
         });
+
+        _setData(data);
+    }
+
+    const editItem = (list, item) => {
+        const data = _getData();
+        const itemIndex = list.getItems().indexOf(item);
+        const listIndex = listController.getListAll().indexOf(list);
+
+        data[listIndex].items[itemIndex] = {
+            title: item.getTitle(),
+            description: item.getDescription(),
+            dueDate: item.getDueDate(),
+            priority: item.getPriority(),
+        };
 
         _setData(data);
     }
@@ -70,6 +84,7 @@ const storageController = (() => {
     return {
         init,
         addItem,
+        editItem,
     };
 })();
 

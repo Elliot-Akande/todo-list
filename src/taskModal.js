@@ -93,21 +93,20 @@ const taskModal = (data) => {
         modalFooter.appendChild(footerLeft);
 
         //  List selection
-        if (!data) {
-            const listSelect = document.createElement('select');
-            listSelect.name = 'list';
-            listSelect.id = 'list';
-            footerLeft.appendChild(listSelect);
+        const listSelect = document.createElement('select');
+        listSelect.name = 'list';
+        listSelect.id = 'list';
+        if (data) listSelect.disabled = true;
+        footerLeft.appendChild(listSelect);
 
-            listController.getListAll().forEach(list => {
-                const option = document.createElement('option');
-                option.value = listController.getListAll().indexOf(list);
-                option.textContent = list.getTitle();
-                if (list === _defaultList) option.selected = true;
+        listController.getListAll().forEach(list => {
+            const option = document.createElement('option');
+            option.value = listController.getListAll().indexOf(list);
+            option.textContent = list.getTitle();
+            if (list === _defaultList) option.selected = true;
 
-                listSelect.appendChild(option);
-            });
-        }
+            listSelect.appendChild(option);
+        });
 
         //  Footer right
         const footerRight = document.createElement('div');
@@ -148,13 +147,15 @@ const taskModal = (data) => {
         const dueDate = document.querySelector('#due-date').value;
         const priotity = document.querySelector('#priority').value;
 
+        const listTitle = document.querySelector('#list').value;
+        const list = listController.getList(listTitle);
+
         if (!data) {
-            const listTitle = document.querySelector('#list').value;
-            const list = listController.getList(listTitle);
             const item = list.addItem(title, description, dueDate, priotity);
             storageController.addItem(list, item);
         } else {
             editItem(title, description, dueDate, priotity);
+            storageController.editItem(list, data);
         }
 
         _closeModal();
