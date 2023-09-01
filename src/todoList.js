@@ -18,11 +18,6 @@ export default function todoList(title) {
         PubSub.publish(NEW_ITEM, _title);
     };
 
-    // const editItem = (title, newTitle, description, dueDate, priority) => {
-    //     const newItem = todoItem(newTitle, description, dueDate, priority);
-    //     _listItems[_listItems.indexOf(title)] = newItem;
-    // };
-
     const removeItem = index => {
         return _listItems.splice(index, 1);
     };

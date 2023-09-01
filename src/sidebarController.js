@@ -25,7 +25,6 @@ const sidebarController = (() => {
 
         // Inbox 
         const inbox = _createNavItem('inbox', 'Inbox');
-        listController.newList('Inbox');
         inbox.dataset.index = 0;
         inbox.addEventListener('click', _projectPressed);
         homeList.appendChild(inbox);
@@ -163,6 +162,11 @@ const sidebarController = (() => {
         listController.getListAll().slice(1).forEach(list => _renderNewProject(list));
     }
 
+    const _renderProjects = () => {
+        const lists = listController.getListAll();
+        if (lists.length > 1) lists.slice(1).forEach(_renderNewProject);
+    }
+
     const _registerEventListeners = () => {
         //  Home item listeners
         const homeItems = document.querySelectorAll('.home-section .all-tasks');
@@ -181,9 +185,11 @@ const sidebarController = (() => {
     const _registerSubscribers = () => {
         const NEW_LIST = 'new list created';
         const LIST_TITLE_UPDATE = 'list title updated';
+        const STORAGE_RETRIEVED = 'lists created using data from local storage';
         
         PubSub.subscribe(NEW_LIST, (msg, data) => _renderNewProject(data));
         PubSub.subscribe(LIST_TITLE_UPDATE, (msg, data) => _updateProject(data));
+        PubSub.subscribe(STORAGE_RETRIEVED, _renderProjects);
     }
 
 
