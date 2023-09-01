@@ -4,7 +4,6 @@ import todoItem from "./todoItem";
 function todoList(title) {
     let _title = title;
     const _listItems = [];
-    const _self = this;
 
     const getTitle = () => _title;
     const getItems = () => _listItems;
@@ -16,7 +15,7 @@ function todoList(title) {
         _listItems.push(item);
 
         const NEW_ITEM = 'new list item created';
-        PubSub.publish(NEW_ITEM, _self);
+        PubSub.publish(NEW_ITEM, _title);
 
         return item;
     };
