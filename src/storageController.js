@@ -13,14 +13,14 @@ const storageController = (() => {
     }
 
     const _initData = () => {
-        _setData([_emptyList('Inbox')]);
+        _setData([_getEmptyList('Inbox')]);
     }
 
     const _populateLists = () => {
         listController.populate(_getData());
     }
 
-    const _emptyList = title => {
+    const _getEmptyList = title => {
         return {
             'title': title,
             'items': [],
@@ -37,7 +37,7 @@ const storageController = (() => {
 
     const _newList = list => {
         const data = _getData();
-        data.push(_emptyList(list.getTitle()));
+        data.push(_getEmptyList(list.getTitle()));
         _setData(data);
     }
 
@@ -47,12 +47,20 @@ const storageController = (() => {
         _setData(data);
     }
 
+    const _deleteList = index => {
+        const data = _getData();
+        data.splice(index, 1);
+        _setData(data);
+    }
+
     const _registerSubscribers = () => {
         const NEW_LIST = 'new list created';
         const LIST_TITLE_UPDATE = 'list title updated';
+        const LIST_DELETED = 'list has been deleted';
 
         PubSub.subscribe(NEW_LIST, (msg, list) => _newList(list));
         PubSub.subscribe(LIST_TITLE_UPDATE, (msg, index) => _updateList(index));
+        PubSub.subscribe(LIST_DELETED, (msg, index) => _deleteList(index));
     }
 
     return {
