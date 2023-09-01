@@ -1,5 +1,6 @@
 import listController from './listController';
 import PubSub from 'pubsub-js';
+import storageController from './storageController';
 
 const taskModal = (data) => {
     const contentDiv = document.querySelector('.content');
@@ -150,7 +151,8 @@ const taskModal = (data) => {
         if (!data) {
             const listTitle = document.querySelector('#list').value;
             const list = listController.getList(listTitle);
-            list.addItem(title, description, dueDate, priotity);
+            const item = list.addItem(title, description, dueDate, priotity);
+            storageController.addItem(list, item);
         } else {
             editItem(title, description, dueDate, priotity);
         }

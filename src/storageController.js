@@ -35,7 +35,7 @@ const storageController = (() => {
         localStorage.setItem('data', JSON.stringify(data));
     }
 
-    const _newList = list => {
+    const _addList = list => {
         const data = _getData();
         data.push(_getEmptyList(list.getTitle()));
         _setData(data);
@@ -53,18 +53,35 @@ const storageController = (() => {
         _setData(data);
     }
 
+    const addItem = (list, item) => {
+        const data = _getData();
+
+        const index = listController.getListAll().indexOf(list);
+        console.log(index);
+        data[index].items.push({
+            title: item.getTitle(),
+            description: item.getDescription(),
+            dueDate: item.getDueDate(),
+            priority: item.getPriority(),
+        });
+        
+        _setData(data);
+    }
+
     const _registerSubscribers = () => {
         const NEW_LIST = 'new list created';
         const LIST_TITLE_UPDATE = 'list title updated';
         const LIST_DELETED = 'list has been deleted';
+        const NEW_ITEM = 'new list item created';
 
-        PubSub.subscribe(NEW_LIST, (msg, list) => _newList(list));
+        PubSub.subscribe(NEW_LIST, (msg, list) => _addList(list));
         PubSub.subscribe(LIST_TITLE_UPDATE, (msg, index) => _updateList(index));
         PubSub.subscribe(LIST_DELETED, (msg, index) => _deleteList(index));
     }
 
     return {
         init,
+        addItem,
     };
 })();
 

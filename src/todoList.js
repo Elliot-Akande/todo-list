@@ -1,9 +1,10 @@
 import PubSub from "pubsub-js";
 import todoItem from "./todoItem";
 
-export default function todoList(title) {
+function todoList(title) {
     let _title = title;
     const _listItems = [];
+    const _self = this;
 
     const getTitle = () => _title;
     const getItems = () => _listItems;
@@ -15,7 +16,9 @@ export default function todoList(title) {
         _listItems.push(item);
 
         const NEW_ITEM = 'new list item created';
-        PubSub.publish(NEW_ITEM, _title);
+        PubSub.publish(NEW_ITEM, _self);
+
+        return item;
     };
 
     const removeItem = index => {
@@ -33,3 +36,5 @@ export default function todoList(title) {
         toggleItemComplete,
     };
 }
+
+export default todoList;
