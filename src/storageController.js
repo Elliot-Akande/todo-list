@@ -70,6 +70,12 @@ const storageController = (() => {
         _setData(data);
     }
 
+    const removeItem = (list, item) => {
+        const data = _getData();
+        data[list].items.splice(item, 1);
+        _setData(data);
+    }
+
     const _registerSubscribers = () => {
         const NEW_LIST = 'new list created';
         const LIST_TITLE_UPDATE = 'list title updated';
@@ -85,6 +91,7 @@ const storageController = (() => {
         init,
         addItem,
         editItem,
+        removeItem,
     };
 })();
 

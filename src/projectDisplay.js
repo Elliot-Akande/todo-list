@@ -1,5 +1,7 @@
 import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
+import storageController from "./storageController";
+import listController from "./listController";
 
 const projectDisplay = (project) => {
     const main = document.querySelector('main');
@@ -107,6 +109,7 @@ const projectDisplay = (project) => {
     const _deleteButtonPressed = (e) => {
         const taskIndex = e.target.parentNode.dataset.index;
         project.removeItem(taskIndex);
+        storageController.removeItem(listController.getListAll().indexOf(project), taskIndex);
         _renderListItems();
     }
 

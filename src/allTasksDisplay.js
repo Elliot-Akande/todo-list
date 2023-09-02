@@ -2,6 +2,7 @@ import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
 import listController from "./listController";
 import { isWithinInterval, isSameDay, compareAsc } from "date-fns";
+import storageController from "./storageController";
 
 const allTasksDisplay = (timePeriod) => {
     const main = document.querySelector('main');
@@ -139,6 +140,7 @@ const allTasksDisplay = (timePeriod) => {
         const taskIndex = e.target.parentNode.dataset.index;
         const projectIndex = e.target.parentNode.dataset.list;
         listController.getList(projectIndex).removeItem(taskIndex);
+        storageController.removeItem(projectIndex, taskIndex);
         _renderListItems();
     }
 
