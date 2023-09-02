@@ -159,10 +159,12 @@ const allTasksDisplay = (timePeriod) => {
         const NEW_ITEM = 'new list item created';
         const ITEM_UPDATED = 'item values updated';
         const LIST_DELETED = 'list has been deleted';
+        const STORAGE_RETRIEVED = 'lists created using data from local storage';
 
         PubSub.subscribe(NEW_ITEM, _renderListItems);
         PubSub.subscribe(ITEM_UPDATED, _renderListItems);
         PubSub.subscribe(LIST_DELETED, _renderListItems);
+        PubSub.subscribe(STORAGE_RETRIEVED, _renderListItems);
     }
 
     return {

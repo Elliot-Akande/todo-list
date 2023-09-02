@@ -17,7 +17,9 @@ const listController = (() => {
 
     const populate = data => {
         data.forEach(list => {
-            lists.push(todoList(list.title));
+            const project = todoList(list.title);
+            project.populate(list.items);
+            lists.push(project);
         });
 
         const STORAGE_RETRIEVED = 'lists created using data from local storage';

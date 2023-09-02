@@ -26,6 +26,17 @@ function todoList(title) {
 
     const toggleItemComplete = index => _listItems[index].toggleComplete();
 
+    const populate = data => {
+        data.forEach(item => {
+            _listItems.push(todoItem(
+                item.title,
+                item.description,
+                item.dueDate,
+                item.priority,
+            ));
+        });
+    }
+
     return {
         getTitle,
         getItems,
@@ -33,6 +44,7 @@ function todoList(title) {
         addItem,
         removeItem,
         toggleItemComplete,
+        populate,
     };
 }
 
