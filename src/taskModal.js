@@ -15,7 +15,7 @@ const taskModal = (data) => {
 
         //  Modal
         const modal = document.createElement('div');
-        modal.classList.add('modal', 'new-project');
+        modal.classList.add('modal', 'new-task');
         modalContainer.appendChild(modal);
 
         //  Form 
@@ -30,6 +30,7 @@ const taskModal = (data) => {
         //  Task title input
         const taskTitle = document.createElement('input');
         taskTitle.id = 'task-title';
+        taskTitle.type = 'text'
         taskTitle.placeholder = 'Task Name';
         taskTitle.required = true;
         if (data) taskTitle.value = data.getTitle();
@@ -38,7 +39,7 @@ const taskModal = (data) => {
         //  Task description input
         const taskDescription = document.createElement('textarea');
         taskDescription.id = 'task-description';
-        taskDescription.placeholder = 'Descripition';
+        taskDescription.placeholder = 'Description';
         taskDescription.rows = 1;
         if (data) taskDescription.value = data.getDescription();
         modalMain.appendChild(taskDescription);

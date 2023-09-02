@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --colour-grey: #858585;
+    --colour-grey-light: #eeeeee;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 .content {
@@ -22,4 +30,81 @@ nav {
 
 main {
     background: #d6f3ff;
+}
+
+/* Modal */
+
+.modal-container {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background: #00000070;
+}
+
+.modal {
+    background: #ffffff;
+    border: 1px solid var(--colour-grey);
+    border-radius: 8px;
+    width: 500px;
+}
+
+/* New-Task Modal */
+
+.new-task .modal-main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px 12px;
+    border-bottom: 1px solid var(--colour-grey);
+}
+
+.new-task .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 12px;
+}
+
+.new-task input[type='text'],
+.new-task textarea {
+    border: none;
+    font-size: 0.9rem;
+    color: var(--colour-grey);
+}
+
+.new-task input:focus-visible,
+.new-task textarea:focus-visible {
+    outline: none;
+}
+
+.new-task input {
+    font-weight: bold;
+}
+
+.new-task textarea {
+    resize: vertical;
+    max-height: 120px;
+}
+
+.selection-container {
+    display: flex;
+    justify-content: start;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.selection-container>* {
+    padding: 5px;
+    border: 1px solid var(--colour-grey);
+    border-radius: 5px;
+    background: white;
+    color: var(--colour-grey);
+}
+
+.selection-container>*:hover {
+    background: var(--colour-grey-light);
 }
