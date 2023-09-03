@@ -130,9 +130,11 @@ const allTasksDisplay = (timePeriod) => {
     const _editButtonPressed = (e) => {
         const taskIndex = e.target.parentNode.dataset.index;
         const listIndex = e.target.parentNode.dataset.list;
-        const task = listController.getList(listIndex).getItems()[taskIndex]
+        const list = listController.getList(listIndex);
+        const task = list.getItems()[taskIndex]
 
         const modal = taskModal(task);
+        modal.setDefaultList(list);
         modal.render();
     }
 

@@ -66,7 +66,6 @@ const storageController = (() => {
             dueDate: item.getDueDate(),
             priority: item.getPriority(),
         };
-
         _setData(data);
     }
 

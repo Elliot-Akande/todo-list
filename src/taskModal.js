@@ -149,27 +149,27 @@ const taskModal = (data) => {
         const title = document.querySelector('#task-title').value;
         const description = document.querySelector('#task-description').value;
         const dueDate = document.querySelector('#due-date').value;
-        const priotity = document.querySelector('#priority').value;
+        const priority = document.querySelector('#priority').value;
 
         const listTitle = document.querySelector('#list').value;
         const list = listController.getList(listTitle);
 
         if (!data) {
-            const item = list.addItem(title, description, dueDate, priotity);
+            const item = list.addItem(title, description, dueDate, priority);
             storageController.addItem(list, item);
         } else {
-            editItem(title, description, dueDate, priotity);
+            editItem(title, description, dueDate, priority);
             storageController.editItem(list, data);
         }
 
         _closeModal();
     }
 
-    const editItem = (title, description, dueDate, priotity) => {
+    const editItem = (title, description, dueDate, priority) => {
         data.setTitle(title);
         data.setDescription(description);
         data.setDueDate(dueDate);
-        data.setPriority(priotity);
+        data.setPriority(priority);
 
         const ITEM_UPDATED = 'item values updated';
         PubSub.publish(ITEM_UPDATED, data);

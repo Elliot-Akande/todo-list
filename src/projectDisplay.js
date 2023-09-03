@@ -36,6 +36,7 @@ const projectDisplay = (project) => {
         itemsDiv.textContent = '';
 
         project.getItems().forEach((item, index) => {
+
             //  Task Container
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('task');
@@ -103,6 +104,7 @@ const projectDisplay = (project) => {
         const task = project.getItems()[index];
 
         const modal = taskModal(task);
+        modal.setDefaultList(project);
         modal.render();
     }
 
