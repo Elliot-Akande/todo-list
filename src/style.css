@@ -2,7 +2,8 @@
 
 :root {
     --colour-grey: #858585;
-    --colour-grey-light: #eeeeee;
+    --colour-grey-dark: #252525;
+    --colour-primary: #ff4d40;
 }
 
 * {
@@ -10,6 +11,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    transition: 0.1s;
 }
 
 .content {
@@ -32,6 +34,7 @@ main {
     background: #d6f3ff;
 }
 
+
 /* Modal */
 
 .modal-container {
@@ -49,9 +52,33 @@ main {
 .modal {
     background: #ffffff;
     border: 1px solid var(--colour-grey);
-    border-radius: 8px;
+    border-radius: 10px;
     width: 500px;
 }
+
+.modal .footer-right {
+    display: flex;
+    gap: 8px;
+}
+
+.modal-cancel,
+.modal-confirm {
+    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+}
+
+.modal-cancel {
+    color: var(--colour-grey-dark);
+}
+
+.modal-confirm {
+    color: white;
+    background: var(--colour-primary);
+}
+
 
 /* New-Task Modal */
 
@@ -59,20 +86,26 @@ main {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 18px 12px;
+    padding: 18px 12px 12px;
     border-bottom: 1px solid var(--colour-grey);
 }
 
 .new-task .modal-footer {
     display: flex;
     justify-content: space-between;
-    padding: 18px 12px;
+    align-items: center;
+    padding: 8px 14px;
 }
 
 .new-task input[type='text'],
 .new-task textarea {
     border: none;
     font-size: 0.9rem;
+    color: var(--colour-grey-dark);
+}
+
+.new-task input[type='text']:placeholder-shown,
+.new-task textarea:placeholder-shown {
     color: var(--colour-grey);
 }
 
@@ -105,6 +138,34 @@ main {
     color: var(--colour-grey);
 }
 
-.selection-container>*:hover {
-    background: var(--colour-grey-light);
+.footer-left>select {
+    /* border: 1px solid var(--colour-grey); */
+    border: none;
+    border-radius: 5px;
+    background: white;
+    color: var(--colour-grey);
+    padding: 5px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 8px 4px;
+}
+
+
+/* Hover styles */
+
+.selection-container>*:hover,
+.footer-left>select:hover,
+button:hover {
+    filter: brightness(0.95);
+}
+
+.modal-confirm:hover {
+    filter: brightness(0.83)
+}
+
+
+/* Active styles */
+
+button:active{
+    transform: scale(0.95);
 }

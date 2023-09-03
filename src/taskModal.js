@@ -53,6 +53,7 @@ const taskModal = (data) => {
         const date = document.createElement('input');
         date.id = 'due-date';
         date.type = 'date';
+        date.title = 'Set due date';
         if (data) date.valueAsDate = data.getDueDate();
         else if (_defaultDate === 'today') date.valueAsDate = new Date();
         selectionContainer.appendChild(date);
@@ -61,6 +62,7 @@ const taskModal = (data) => {
         const priority = document.createElement('select');
         priority.name = 'priority';
         priority.id = 'priority';
+        priority.title = 'Set priority';
         selectionContainer.appendChild(priority);
 
         //  Priority options
@@ -97,6 +99,7 @@ const taskModal = (data) => {
         const listSelect = document.createElement('select');
         listSelect.name = 'list';
         listSelect.id = 'list';
+        listSelect.title = 'Select a project';
         if (data) listSelect.disabled = true;
         footerLeft.appendChild(listSelect);
 
