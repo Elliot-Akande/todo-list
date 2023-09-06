@@ -34,7 +34,6 @@ main {
     background: #d6f3ff;
 }
 
-
 /* Modal */
 
 .modal-container {
@@ -139,7 +138,6 @@ main {
 }
 
 .footer-left>select {
-    /* border: 1px solid var(--colour-grey); */
     border: none;
     border-radius: 5px;
     background: white;
@@ -148,6 +146,36 @@ main {
     font-weight: bold;
     font-size: 0.85rem;
     padding: 8px 4px;
+}
+
+/* New-Project Modal */
+
+.modal-header {
+    padding: 8px 14px 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--colour-grey-dark);
+}
+
+#project-title {
+    border: none;
+    font-size: 0.9rem;
+    color: var(--colour-grey-dark);
+    margin: 8px 14px;
+    font-weight: bold;
+
+}
+
+#project-title:focus-visible {
+    outline: none;
+}
+
+.modal-controls {
+    width: 100%;
+    padding: 8px 14px;
+    display: flex;
+    justify-content: end;
+    gap: 8px;
 }
 
 
@@ -162,6 +190,7 @@ button:hover {
 .modal-confirm:hover {
     filter: brightness(0.83)
 }
+
 
 
 /* Active styles */

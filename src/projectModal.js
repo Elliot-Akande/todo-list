@@ -25,25 +25,14 @@ const projectModal = (data) => {
         const form = document.createElement('form');
         modal.appendChild(form);
 
-        //  Label
-        const label = document.createElement('label');
-        label.textContent = 'Name:';
-        label.htmlFor = 'project-title';
-        form.appendChild(label);
-
         //  Input
         const input = document.createElement('input');
         input.id = 'project-title';
+        input.placeholder = 'Project Title';
         input.required = true;
         input.maxLength = 20;
         if (data) input.value = data.getTitle();
         form.appendChild(input);
-
-        //  Error Message
-        const errorMessage = document.createElement('div');
-        errorMessage.textContent = 'Project name is required';
-        errorMessage.classList.add('invalid-feedback');
-        form.appendChild(errorMessage);
 
         //  Buttons 
         const buttonsDiv = document.createElement('div');
