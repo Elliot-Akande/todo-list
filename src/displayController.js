@@ -18,12 +18,12 @@ const displayController = (() => {
 
         // Header text
         const headerText = document.createElement('h1');
-        headerText.textContent = 'ToDo List';
+        headerText.textContent = 'Todo List';
         header.appendChild(headerText);
 
         // Create Item Button
         const button = document.createElement('button');
-        button.textContent = 'Add Task';
+        button.title = 'New task';
         button.classList.add('add-task-header');
         header.appendChild(button);
     }
