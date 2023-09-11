@@ -21,13 +21,13 @@ const sidebarController = (() => {
         // Inbox 
         const inbox = _createNavItem('inbox', 'Inbox');
         inbox.dataset.index = 0;
-        inbox.classList.add('project', 'active');
+        inbox.classList.add('project');
         inbox.addEventListener('click', _projectPressed);
         homeList.appendChild(inbox);
 
         // Other home items
         const today = _createNavItem('today', 'Today');
-        today.classList.add('all-tasks');
+        today.classList.add('all-tasks', 'active');
         homeList.appendChild(today);
         const week = _createNavItem('week', 'Next 7 Days');
         week.classList.add('all-tasks');
@@ -103,7 +103,7 @@ const sidebarController = (() => {
     }; 
 
     const _homeItemPressed = (e) => {
-        const category = e.currentTarget.dataset.category;
+        const category = e.currentTarget.querySelector('div').dataset.category;
 
         _setActive(e.currentTarget);
 
