@@ -1,7 +1,7 @@
 import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
 import listController from "./listController";
-import { isWithinInterval, isSameDay, compareAsc } from "date-fns";
+import { isWithinInterval, isSameDay, compareAsc, format } from "date-fns";
 import storageController from "./storageController";
 
 const allTasksDisplay = (timePeriod) => {
@@ -48,8 +48,10 @@ const allTasksDisplay = (timePeriod) => {
 
             //  Task Complete button
             const completeButton = document.createElement('button');
-            completeButton.textContent = 'complete';
+            completeButton.title = 'Complete task';
             completeButton.classList.add('complete-button');
+            if (item.data.getPriority() === 'high') completeButton.classList.add('high-priority');
+            if (item.data.getPriority() === 'med') completeButton.classList.add('med-priority');
             itemDiv.appendChild(completeButton);
             completeButton.addEventListener('click', _completeButtonPressed);
 
@@ -69,20 +71,21 @@ const allTasksDisplay = (timePeriod) => {
 
             //  Date
             const dueDate = document.createElement('div');
-            dueDate.textContent = item.data.getDueDate().toLocaleDateString('en-GB');
+            // dueDate.textContent = item.data.getDueDate().toLocaleDateString('en-GB');
+            dueDate.textContent = format(item.data.getDueDate(), 'PP').replace(',', '');
             dueDate.classList.add('dueDate');
             itemDiv.appendChild(dueDate);
 
             //  Edit button
             const EditButton = document.createElement('button');
-            EditButton.textContent = 'edit';
+            EditButton.title = 'Edit task';
             EditButton.classList.add('edit-button');
             itemDiv.appendChild(EditButton);
             EditButton.addEventListener('click', _editButtonPressed);
 
             //  Delete button
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'delete';
+            deleteButton.title = 'Delete task';
             deleteButton.classList.add('delete-button');
             itemDiv.appendChild(deleteButton);
             deleteButton.addEventListener('click', _deleteButtonPressed);

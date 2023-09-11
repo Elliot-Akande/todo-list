@@ -2,6 +2,7 @@ import PubSub from "pubsub-js";
 import taskModal from "./taskModal";
 import storageController from "./storageController";
 import listController from "./listController";
+import format from "date-fns/format";
 
 const projectDisplay = (project) => {
     const main = document.querySelector('main');
@@ -45,8 +46,10 @@ const projectDisplay = (project) => {
 
             //  Task Complete button
             const completeButton = document.createElement('button');
-            completeButton.textContent = 'complete';
+            completeButton.title = 'Complete task';
             completeButton.classList.add('complete-button');
+            if (item.getPriority() === 'high') completeButton.classList.add('high-priority');
+            if (item.getPriority() === 'med') completeButton.classList.add('med-priority');
             itemDiv.appendChild(completeButton);
             completeButton.addEventListener('click', _completeButtonPressed);
 
@@ -68,21 +71,21 @@ const projectDisplay = (project) => {
             const date = item.getDueDate();
             if (date instanceof Date && !isNaN(date)) {
                 const dueDate = document.createElement('div');
-                dueDate.textContent = date.toLocaleDateString('en-GB');
+                dueDate.textContent = format(date, 'PP').replace(',', '');
                 dueDate.classList.add('dueDate');
                 itemDiv.appendChild(dueDate);
             }
 
             //  Edit button
             const EditButton = document.createElement('button');
-            EditButton.textContent = 'edit';
+            EditButton.title = 'Edit task';
             EditButton.classList.add('edit-button');
             itemDiv.appendChild(EditButton);
             EditButton.addEventListener('click', _editButtonPressed);
 
             //  Delete button
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'delete';
+            deleteButton.title = 'Delete task';
             deleteButton.classList.add('delete-button');
             itemDiv.appendChild(deleteButton);
             deleteButton.addEventListener('click', _deleteButtonPressed);

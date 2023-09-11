@@ -4,8 +4,18 @@
     --colour-grey: #858585;
     --colour-grey-l2: #f1f1f1;
     --colour-grey-l1: #e2e2e2;
-    --colour-grey-d: #252525;
+    --colour-grey-d1: #6f6f6f;
+    --colour-grey-d2: #252525;
+
     --colour-primary: #d1453b;
+
+    --colour-priority-med: #f97316;
+    --colour-priority-med-bg: #fff7ed;
+    --colour-priority-med-hover: #ffedd5;
+
+    --colour-priority-high: #dc2626;
+    --colour-priority-high-bg: #fef2f2;
+    --colour-priority-high-hover: #fee2e2;
 }
 
 * {
@@ -13,6 +23,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+    color: var(--colour-grey-d2);
 }
 
 .content {
@@ -131,7 +142,7 @@ nav li:hover,
 }
 
 .project>button:hover {
-    background: var(--colour-grey-d);
+    background: var(--colour-grey-d2);
 }
 
 .project>.edit-button {
@@ -162,7 +173,7 @@ nav li:hover,
     content: '';
     position: absolute;
     left: 12px;
-    background: var(--colour-grey-d);
+    background: var(--colour-grey-d2);
     height: 20px;
     width: 20px;
 }
@@ -173,10 +184,6 @@ nav li:hover,
 }
 
 .add-project::before {
-    top: 7px;
-    left: 12px;
-    height: 25px;
-    width: 25px;
     -webkit-mask: url(plus.svg) no-repeat center;
     mask: url(plus.svg) no-repeat center;
 }
@@ -186,12 +193,12 @@ nav li:hover,
     mask: url(inbox.svg) no-repeat center;
 }
 
-.home-section li:nth-child(2)::before{
+.home-section li:nth-child(2)::before {
     -webkit-mask: url(calendar-today.svg) no-repeat center;
     mask: url(calendar-today.svg) no-repeat center;
 }
 
-.home-section li:nth-child(3)::before{
+.home-section li:nth-child(3)::before {
     -webkit-mask: url(calendar-week.svg) no-repeat center;
     mask: url(calendar-week.svg) no-repeat center;
 }
@@ -201,6 +208,189 @@ nav li:hover,
 
 main {
     background: white;
+    padding: 30px 50px;
+}
+
+main>h2 {
+    font-size: 2rem;
+    color: var(--colour-grey-d2);
+    margin-bottom: 16px;
+}
+
+.task {
+    display: grid;
+    grid-template-columns: auto 1fr 22px 22px;
+    grid-template-rows: 18px;
+    padding: 10px 0;
+    column-gap: 8px;
+    row-gap: 6px;
+    border-bottom: 1px solid var(--colour-grey-l1);
+}
+
+.task:hover>.edit-button,
+.task:hover>.delete-button {
+    display: block;
+}
+
+.task>.complete-button {
+    background: white;
+    border: 1px solid var(--colour-grey);
+    border-radius: 20px;
+    height: 18px;
+    width: 18px;
+    position: relative;
+    top: 3px;
+}
+
+.task>.complete-button:hover::before {
+    content: '';
+    position: absolute;
+    background: var(--colour-grey);
+    top: 1px;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    -webkit-mask: url(check.svg) no-repeat center;
+    mask: url(check.svg) no-repeat center;
+}
+
+.task>.complete-button.high-priority {
+    background: var(--colour-priority-high-bg);
+    border: 1px solid var(--colour-priority-high);
+}
+
+.task>.complete-button.med-priority {
+    background: var(--colour-priority-med-bg);
+    border: 1px solid var(--colour-priority-med);
+}
+
+.task>.complete-button.high-priority:hover {
+    background: var(--colour-priority-high-hover);
+    filter: none;
+}
+
+.task>.complete-button.med-priority:hover {
+    background: var(--colour-priority-med-hover);
+    filter: none;
+}
+
+.task>.complete-button.high-priority:hover::before {
+    background: var(--colour-priority-high);
+}
+
+.task>.complete-button.med-priority:hover::before {
+    background: var(--colour-priority-med);
+}
+
+.task>.description {
+    font-size: 0.85rem;
+    color: var(--colour-grey-d1);
+}
+
+.task>.dueDate {
+    font-size: 0.85rem;
+    color: var(--colour-primary);
+    position: relative;
+    padding-left: 20px;
+}
+
+.task>.dueDate::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background: var(--colour-primary);
+    -webkit-mask: url(calendar-today.svg) no-repeat center;
+    mask: url(calendar-today.svg) no-repeat center;
+}
+
+.task>.edit-button,
+.task>.delete-button {
+    background: var(--colour-grey);
+    display: none;
+    border: none;
+    height: 22px;
+    width: 22px;
+}
+
+.task>.edit-button {
+    position: relative;
+    left: 3px;
+    -webkit-mask: url(pencil.svg) no-repeat center;
+    mask: url(pencil.svg) no-repeat center;
+}
+
+.task>.delete-button {
+    -webkit-mask: url(delete.svg) no-repeat center;
+    mask: url(delete.svg) no-repeat center;
+}
+
+.task>.edit-button:hover,
+.task>.delete-button:hover {
+    background: var(--colour-grey-d2);
+}
+
+main>.add-task {
+    margin-top: 12px;
+    padding-left: 24px;
+    background: none;
+    border: none;
+    color: var(--colour-grey);
+    font-size: 1rem;
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+
+main>.add-task:active {
+    transform: none;
+}
+
+main>.add-task::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: var(--colour-primary);
+    -webkit-mask: url(plus.svg) no-repeat center;
+    mask: url(plus.svg) no-repeat center;
+}
+
+main>.add-task:hover{
+    color: var(--colour-primary);
+    filter: none;
+}
+
+main>.add-task:hover::before {
+    -webkit-mask: url(plus-circle.svg) no-repeat center;
+    mask: url(plus-circle.svg) no-repeat center;
+}
+
+/* Task Grid Layout */
+
+.task>.complete-button {
+    grid-column: 1/2;
+}
+
+.task>.title,
+.task>.description,
+.task>.dueDate {
+    grid-column: 2/3;
+}
+
+.task>.edit-button {
+    grid-column: 3/4;
+}
+
+.task>.delete-button {
+    grid-column: 4/5;
+}
+
+.task>.edit-button,
+.task>.delete-button {
+    grid-row: 1/2;
 }
 
 
@@ -220,7 +410,7 @@ main {
 
 .modal {
     background: #ffffff;
-    border: 1px solid var(--colour-grey);
+    border: 1px solid var(--colour-grey-l2);
     border-radius: 10px;
     width: 500px;
 }
@@ -240,7 +430,7 @@ main {
 }
 
 .modal-cancel {
-    color: var(--colour-grey-d);
+    color: var(--colour-grey-d2);
 }
 
 .modal-confirm {
@@ -256,7 +446,7 @@ main {
     flex-direction: column;
     gap: 8px;
     padding: 18px 12px 12px;
-    border-bottom: 1px solid var(--colour-grey);
+    border-bottom: 1px solid var(--colour-grey-l1);
 }
 
 .new-task .modal-footer {
@@ -270,7 +460,7 @@ main {
 .new-task textarea {
     border: none;
     font-size: 0.9rem;
-    color: var(--colour-grey-d);
+    color: var(--colour-grey-d2);
 }
 
 .new-task input[type='text']:placeholder-shown,
@@ -301,7 +491,7 @@ main {
 
 .selection-container>* {
     padding: 5px;
-    border: 1px solid var(--colour-grey);
+    border: 1px solid var(--colour-grey-l1);
     border-radius: 5px;
     background: white;
     color: var(--colour-grey);
@@ -318,21 +508,30 @@ main {
     padding: 8px 4px;
 }
 
+.footer-left>select:disabled {
+    color: var(--colour-grey);
+    background: var(--colour-grey-l2);
+}
+
+.footer-left>select:disabled:hover {
+    filter: none;
+}
+
 /* New-Project Modal */
 
 .modal-header {
     padding: 10px 14px 4px;
     font-size: 1rem;
     font-weight: bold;
-    color: var(--colour-grey-d);
+    color: var(--colour-grey-d2);
 }
 
 #project-title {
-    border: 1px solid var(--colour-grey);
+    border: 1px solid var(--colour-grey-l1);
     border-radius: 5px;
     padding: 8px;
     font-size: 0.9rem;
-    color: var(--colour-grey-d);
+    color: var(--colour-grey-d2);
     margin: 8px 14px;
     font-weight: bold;
     width: calc(100% - 28px);
