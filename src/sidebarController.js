@@ -13,11 +13,6 @@ const sidebarController = (() => {
         const homeSection = document.createElement('div');
         homeSection.classList.add('home-section');
         sidebar.appendChild(homeSection);
-
-        const homeHeader = document.createElement('h2');
-        homeHeader.textContent = 'Home';
-        homeHeader.classList.add('header');
-        homeSection.appendChild(homeHeader);
         
         //  Home List
         const homeList = document.createElement('ul');
@@ -26,6 +21,7 @@ const sidebarController = (() => {
         // Inbox 
         const inbox = _createNavItem('inbox', 'Inbox');
         inbox.dataset.index = 0;
+        inbox.classList.add('project', 'active');
         inbox.addEventListener('click', _projectPressed);
         homeList.appendChild(inbox);
 
@@ -91,14 +87,14 @@ const sidebarController = (() => {
 
         //  Edit button
         const EditButton = document.createElement('button');
-        EditButton.textContent = 'edit';
+        EditButton.title = 'Edit project';
         EditButton.classList.add('edit-button');
         project.appendChild(EditButton);
         EditButton.addEventListener('click', _editButtonPressed);
 
         //  Delete button
         const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'delete';
+        deleteButton.title = 'Delete project';
         deleteButton.classList.add('delete-button');
         project.appendChild(deleteButton);
         deleteButton.addEventListener('click', _deleteButtonPressed);
@@ -107,7 +103,9 @@ const sidebarController = (() => {
     }; 
 
     const _homeItemPressed = (e) => {
-        const category = e.target.dataset.category;
+        const category = e.currentTarget.dataset.category;
+
+        _setActive(e.currentTarget);
 
         const SHOW_HOME = 'home category pressed';
         PubSub.publish(SHOW_HOME, category);
@@ -116,6 +114,8 @@ const sidebarController = (() => {
     const _projectPressed = (e) => {
         const index = e.currentTarget.dataset.index;
         const project = listController.getList(index);
+
+        _setActive(e.currentTarget);
         
         const SHOW_PROJECT = 'project pressed';
         PubSub.publish(SHOW_PROJECT, project);
@@ -160,6 +160,13 @@ const sidebarController = (() => {
         const projectSection = document.querySelector('.projects-div');
         projectSection.textContent = '';
         listController.getListAll().slice(1).forEach(list => _renderNewProject(list));
+    }
+
+    const _setActive = element => {
+        const oldElement = document.querySelector('.active');
+        if (oldElement) oldElement.classList.toggle('active');
+
+        element.classList.toggle('active');
     }
 
     const _renderProjects = () => {
