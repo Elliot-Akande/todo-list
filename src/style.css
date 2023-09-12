@@ -571,3 +571,18 @@ button:hover {
 button:active {
     transform: scale(0.95);
 }
+
+
+/* Footer */
+
+footer {
+    position: absolute;
+    right: 16px;
+    bottom: 8px;
+    /* transform: translate(-50%); */
+    font-size: 1rem;
+}
+
+footer p {
+    color: var(--colour-grey-l1);
+}
