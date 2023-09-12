@@ -1,15 +1,22 @@
-# 🚀 Welcome to your new awesome project!
+# ✔️ Todo List
 
-This project has been created using **webpack-cli**, you can now run
+Keep track of tasks and deadlines using my take on a todo list application.
 
-```
-npm run build
-```
+The aim of this project was to practice following JavaScript Object Oriented design principles whilst becoming more comfortable setting up and utilising Webpack.
 
-or
+[Live Demo](https://elliot-akande.github.io/todo-list/) :point_left:
 
-```
-yarn build
-```
+## Features
 
-to bundle your application
+- Save to-do items to one of the default folders (Home, Today, Week) or create a custom folder.
+- Make an edit, delete and check off items.
+- Three priority levels to assign a to-do item.
+- Data saved to local storage.
+
+## Technologies Used
+
+- HTML
+- CSS
+- JavaScript
+- NPM
+- Webpack
