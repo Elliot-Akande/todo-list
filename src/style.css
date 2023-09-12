@@ -67,8 +67,8 @@ header>button {
     position: relative;
     background: white;
     border: none;
-    height: 50px;
-    width: 50px;
+    height: 46px;
+    width: 46px;
     -webkit-mask: url(plus.svg) no-repeat center;
     mask: url(plus.svg) no-repeat center;
     transition: 0.1s;
@@ -76,6 +76,7 @@ header>button {
 
 header>button:hover {
     transform: scale(1.08);
+    filter: none;
 }
 
 
@@ -332,7 +333,7 @@ main>h2 {
 }
 
 main>.add-task {
-    margin-top: 12px;
+    margin-top: 14px;
     padding-left: 24px;
     background: none;
     border: none;
