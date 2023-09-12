@@ -5,6 +5,8 @@ export default function todoItem(title, description, dueDate, priority) {
     let _priority = priority;
 
     function _formatDate(data) {
+        if (!data) return 'No Date';
+
         const date = new Date(data);
         date.setHours(12, 0, 0, 0);
         return date;

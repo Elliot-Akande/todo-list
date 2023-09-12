@@ -69,7 +69,7 @@ const projectDisplay = (project) => {
 
             //  Date
             const date = item.getDueDate();
-            if (date instanceof Date && !isNaN(date)) {
+            if (date !== 'No Date') {
                 const dueDate = document.createElement('div');
                 dueDate.textContent = format(date, 'PP').replace(',', '');
                 dueDate.classList.add('dueDate');

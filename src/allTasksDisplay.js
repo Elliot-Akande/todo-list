@@ -104,7 +104,8 @@ const allTasksDisplay = (timePeriod) => {
                 itemIndex: list.getItems().indexOf(item),
                 listIndex: listController.getListAll().indexOf(list),
             }
-        })).flat();
+        })).flat().filter(item => item.data.getDueDate() !== 'No Date');
+
 
         if (timePeriod === 'week') {
             const nextWeek = new Date(today.valueOf());
