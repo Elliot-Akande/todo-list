@@ -1,4 +1,4 @@
-# Todo List
+# ✔️ Todo List
 
 Keep track of tasks and deadlines using my take on a todo list application.
 
