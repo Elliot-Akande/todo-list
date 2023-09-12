@@ -18,4 +18,5 @@ The aim of this project was to practice following JavaScript Object Oriented des
 - HTML
 - CSS
 - JavaScript
+- NPM
 - Webpack
